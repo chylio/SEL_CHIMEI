@@ -43,7 +43,7 @@ export default function App() {
       <footer className="bg-white border-t border-amber-100 py-8 mt-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <p className="text-sub-text text-sm">
-            © 2025 奇美醫療 SEL 學習小棧｜專為醫療專業人員設計的社會情緒學習平台
+            © 2026 奇美醫院 SEL 學習小棧｜專為醫療專業人員設計的社會情緒學習平台
           </p>
           <p className="text-sub-text text-xs mt-1">
             照顧別人的同時，也別忘了照顧自己 🌸
