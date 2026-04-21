@@ -25,35 +25,35 @@ function QuizQuestionCard({ question, selectedOptions, onToggleOption, questionI
           <div className="ml-auto text-xs text-sub-text font-medium">{questionIndex + 1} / {totalQuestions}</div>
         </div>
 
-        <div className="bg-amber-50/60 border border-amber-100 rounded-xl p-4 mb-5">
-          <div className="flex gap-2 mb-2"><span className="text-sm font-semibold text-amber-700">📋 情境</span></div>
-          <p className="text-warm-text text-sm leading-relaxed whitespace-pre-line">{question.scenario}</p>
+        <div className="bg-amber-50/60 border border-amber-100 rounded-xl p-5 mb-6">
+          <div className="flex gap-2 mb-2"><span className="text-base font-semibold text-amber-700">📋 情境</span></div>
+          <p className="text-warm-text text-base leading-relaxed whitespace-pre-line">{question.scenario}</p>
         </div>
 
-        <p className="font-semibold text-warm-text text-base mb-4">{question.question}</p>
+        <p className="font-semibold text-warm-text text-lg mb-5">{question.question}</p>
 
-        <div className="space-y-3">
+        <div className="space-y-4">
           {question.options.map((opt) => {
             const isSelected = selectedOptions.includes(opt.id)
             return (
               <label key={opt.id}
-                className={`flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all duration-200
+                className={`flex items-start gap-4 p-5 rounded-xl border-2 cursor-pointer transition-all duration-200
                   ${isSelected ? 'border-muted-orange bg-soft-orange' : 'border-gray-100 bg-white hover:border-amber-200 hover:bg-amber-50/50'}`}>
-                <div className={`mt-0.5 w-5 h-5 rounded border-2 flex-shrink-0 flex items-center justify-center transition-all
+                <div className={`mt-0.5 w-6 h-6 rounded border-2 flex-shrink-0 flex items-center justify-center transition-all
                   ${isSelected ? 'border-muted-orange bg-muted-orange' : 'border-gray-300'}`}>
                   {isSelected && (
-                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   )}
                 </div>
                 <input type="checkbox" className="hidden" checked={isSelected} onChange={() => onToggleOption(opt.id)} />
-                <span className={`text-sm leading-relaxed ${isSelected ? 'text-warm-text font-medium' : 'text-sub-text'}`}>{opt.text}</span>
+                <span className={`text-base leading-relaxed ${isSelected ? 'text-warm-text font-medium' : 'text-sub-text'}`}>{opt.text}</span>
               </label>
             )
           })}
         </div>
-        <p className="text-xs text-sub-text mt-4 text-center">可複選，選出你實際上會做到的選項</p>
+        <p className="text-sm text-sub-text mt-5 text-center">可複選，選出你實際上會做到的選項</p>
       </div>
     </div>
   )
