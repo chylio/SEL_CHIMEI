@@ -1,41 +1,41 @@
 // HeroSection — 內嵌
 function HeroSection({ navigate }) {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-[#FFF8F0] to-sky-50 pt-14 pb-20">
+    <section className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-[#FFF8F0] to-sky-50 pt-20 pb-28">
       <div className="absolute top-0 left-0 w-80 h-80 bg-orange-100 rounded-full blur-3xl opacity-50 -translate-x-1/2 -translate-y-1/3 pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-sky-100 rounded-full blur-3xl opacity-40 translate-x-1/3 translate-y-1/3 pointer-events-none" />
       <div className="absolute top-1/2 left-1/3 w-72 h-72 bg-rose-100 rounded-full blur-3xl opacity-25 -translate-y-1/2 pointer-events-none" />
 
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+      <div className="relative max-w-7xl mx-auto px-6 sm:px-10">
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
 
           {/* ── 左：文字 ── */}
           <div className="flex-1 text-center lg:text-left order-2 lg:order-1">
-            <div className="inline-flex items-center gap-2 bg-white/80 border border-amber-200 text-muted-orange text-sm font-medium px-4 py-1.5 rounded-full mb-6 shadow-sm">
+            <div className="inline-flex items-center gap-2 bg-white/80 border border-amber-200 text-muted-orange text-base font-medium px-5 py-2 rounded-full mb-8 shadow-sm">
               <span>🌸</span>
               <span>奇美醫院 SEL 學習小棧</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-warm-text leading-tight mb-5">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-warm-text leading-tight mb-6">
               照顧別人的同時，<br />
               <span className="text-muted-orange">也別忘了照顧自己</span>
             </h1>
 
-            <p className="text-sub-text text-base md:text-lg leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
+            <p className="text-sub-text text-lg md:text-xl leading-relaxed mb-10 max-w-xl mx-auto lg:mx-0">
               在忙碌的醫療現場中，練習自我覺察、自我管理、社會覺察、人際技巧與負責任的決定，
               讓壓力有出口，讓情緒有理解，讓專業更有溫度。
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-10">
-              <button onClick={() => navigate('abilities')} className="btn-primary text-base px-8 py-3">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10">
+              <button onClick={() => navigate('abilities')} className="btn-primary text-lg px-10 py-4">
                 開始探索 →
               </button>
-              <button onClick={() => navigate('selfcheck')} className="btn-outline text-base px-8 py-3">
+              <button onClick={() => navigate('selfcheck')} className="btn-outline text-lg px-10 py-4">
                 先做今日檢測
               </button>
             </div>
 
-            <div className="flex flex-nowrap gap-2 justify-center lg:justify-start overflow-x-auto pb-1">
+            <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
               {[
                 { emoji: '🌸', label: '自我覺察' },
                 { emoji: '🌿', label: '自我管理' },
@@ -52,20 +52,20 @@ function HeroSection({ navigate }) {
 
           {/* ── 右：圖片 + 圓弧 SEL ── */}
           <div className="flex-shrink-0 order-1 lg:order-2 flex items-center justify-center">
-            <div className="relative flex items-center justify-center w-[380px] h-[420px] sm:w-[420px] sm:h-[460px]">
+            <div className="relative flex items-center justify-center w-[460px] h-[500px] sm:w-[520px] sm:h-[560px]">
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-200/60 via-orange-100/40 to-pink-100/50 blur-2xl" />
-              <div className="absolute w-[340px] h-[340px] sm:w-[380px] sm:h-[380px] rounded-full border-[3px] border-dashed border-amber-200/70" style={{ top: '18px' }} />
+              <div className="absolute w-[420px] h-[420px] sm:w-[470px] sm:h-[470px] rounded-full border-[3px] border-dashed border-amber-200/70" style={{ top: '18px' }} />
               <div
-                className="absolute w-[300px] h-[300px] sm:w-[340px] sm:h-[340px] overflow-hidden shadow-2xl"
+                className="absolute w-[370px] h-[370px] sm:w-[420px] sm:h-[420px] overflow-hidden shadow-2xl"
                 style={{ top: '22px', borderRadius: '62% 38% 46% 54% / 56% 44% 56% 44%', boxShadow: '0 12px 50px rgba(244,162,97,0.25), 0 4px 20px rgba(0,0,0,0.08)' }}
               >
                 <img src="/hero-doctor.png" alt="醫療人員喝茶放鬆插畫" className="w-full h-full object-cover object-center scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-amber-100/20 via-transparent to-transparent" />
               </div>
 
-              <div className="absolute top-6 right-0 sm:right-2 bg-white rounded-2xl shadow-card px-4 py-2.5 flex items-center gap-2 border border-amber-100 animate-bounce" style={{ animationDuration: '2.5s' }}>
-                <span className="text-xl">☕</span>
-                <span className="text-sm font-semibold text-warm-text">先喘口氣</span>
+              <div className="absolute top-6 right-0 sm:right-2 bg-white rounded-2xl shadow-card px-5 py-3 flex items-center gap-2 border border-amber-100 animate-bounce" style={{ animationDuration: '2.5s' }}>
+                <span className="text-2xl">☕</span>
+                <span className="text-base font-semibold text-warm-text">先喘口氣</span>
               </div>
               <div className="absolute top-8 left-2 w-3 h-3 rounded-full bg-pink-300 opacity-70" />
               <div className="absolute top-1/3 right-0 text-lg opacity-60">🌿</div>
@@ -97,14 +97,6 @@ function HeroSection({ navigate }) {
             </div>
           </div>
 
-        </div>
-
-        <div className="mt-10 flex flex-wrap gap-2 justify-center">
-          {['醫師', '護理師', '藥師', '醫檢師', '醫事人員', '行政人員', '教育工作者'].map((role) => (
-            <span key={role} className="bg-white/80 border border-amber-100 text-sub-text text-sm px-4 py-2 rounded-full shadow-sm font-medium">
-              {role}
-            </span>
-          ))}
         </div>
       </div>
     </section>

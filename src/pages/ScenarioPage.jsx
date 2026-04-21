@@ -52,16 +52,16 @@ export default function ScenarioPage({ navigate }) {
         ))}
       </div>
 
-      <div className="bg-gradient-to-br from-sky-50 to-teal-50 rounded-3xl border border-sky-100 p-6 sm:p-8 text-center">
-        <div className="text-3xl mb-3">💡</div>
-        <h3 className="font-bold text-warm-text text-lg mb-2">測驗怎麼設計的？</h3>
-        <p className="text-sub-text text-sm leading-relaxed max-w-lg mx-auto mb-4">
+      <div className="bg-gradient-to-br from-sky-50 to-teal-50 rounded-3xl border border-sky-100 p-10 sm:p-14 text-center">
+        <div className="text-5xl mb-4">💡</div>
+        <h3 className="font-bold text-warm-text text-2xl mb-3">測驗怎麼設計的？</h3>
+        <p className="text-sub-text text-base leading-relaxed max-w-xl mx-auto mb-6">
           每個情境測驗對應 SEL 五大能力，透過真實臨床情境讓你練習覺察、管理、同理、溝通與決策，
           完成後會有能力分析報告，幫助你了解自己的強項與成長空間。
         </p>
-        <div className="flex flex-wrap justify-center gap-2">
+        <div className="flex flex-wrap justify-center gap-3">
           {['自我覺察', '自我管理', '社會覺察', '人際技巧', '負責任的決策'].map((a) => (
-            <span key={a} className="bg-white border border-sky-100 text-sky-700 text-xs px-3 py-1 rounded-full font-medium">{a}</span>
+            <span key={a} className="bg-white border border-sky-100 text-sky-700 text-sm px-4 py-1.5 rounded-full font-medium">{a}</span>
           ))}
         </div>
       </div>

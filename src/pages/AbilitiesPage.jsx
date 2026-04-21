@@ -99,26 +99,26 @@ export default function AbilitiesPage({ navigate }) {
         <div className="absolute top-0 right-0 w-64 h-64 bg-amber-100/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-sky-100/60 rounded-full blur-2xl translate-y-1/3 -translate-x-1/4 pointer-events-none" />
 
-        <div className="relative flex flex-col md:flex-row items-center gap-8 p-7 sm:p-10">
+        <div className="relative flex flex-col md:flex-row items-center gap-10 p-10 sm:p-14">
           <div className="flex-shrink-0 relative">
             <div className="absolute inset-0 bg-white/60 rounded-full blur-xl scale-110" />
-            <img src="/sel-wheel.png" alt="SEL 五大能力" className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full object-cover shadow-lg border-4 border-white" />
+            <img src="/sel-wheel.png" alt="SEL 五大能力" className="relative w-56 h-56 sm:w-72 sm:h-72 rounded-full object-cover shadow-lg border-4 border-white" />
           </div>
           <div className="flex-1 text-center md:text-left">
-            <div className="inline-flex items-center gap-2 bg-white/80 border border-teal-200 text-teal-600 text-xs font-semibold px-3 py-1 rounded-full mb-3">
+            <div className="inline-flex items-center gap-2 bg-white/80 border border-teal-200 text-teal-600 text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
               🌀 五大能力，相互支撐
             </div>
-            <h3 className="text-xl sm:text-2xl font-bold text-warm-text mb-3 leading-snug">
+            <h3 className="text-2xl sm:text-3xl font-bold text-warm-text mb-4 leading-snug">
               SEL 不是一次學完，<br className="hidden sm:block" />而是在每個當下練習。
             </h3>
-            <p className="text-sub-text text-sm leading-relaxed mb-5 max-w-lg">
+            <p className="text-sub-text text-base leading-relaxed mb-6 max-w-lg">
               自我覺察幫你看見自己，自我管理幫你穩住自己，社會覺察幫你理解他人，
               人際技巧幫你連結他人，負責任的決策幫你選擇更好的行動。
               <br /><span className="text-warm-text font-medium">五種能力，在每一次的醫療互動中都可以練習。</span>
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-              <button onClick={() => navigate('selfcheck')} className="btn-outline text-sm">🌡️ 先做今日自我檢測</button>
-              <button onClick={() => navigate('scenario')} className="btn-primary text-sm">🎭 前往情境練習 →</button>
+              <button onClick={() => navigate('selfcheck')} className="btn-outline">🌡️ 先做今日自我檢測</button>
+              <button onClick={() => navigate('scenario')} className="btn-primary">🎭 前往情境練習 →</button>
             </div>
           </div>
         </div>
