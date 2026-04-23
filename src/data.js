@@ -1,4 +1,4 @@
-// ─── SEL 五大能力 ─────────────────────────────────────────────────────────────
+// ─── SEL 五大能力 ────────────────────────────────────────────────────────────
 export const abilitiesData = [
   {
     id: 'self-awareness',
@@ -17,7 +17,7 @@ export const abilitiesData = [
       '辨識與認識情緒',
       '瞭解自我需求、價值觀',
       '認識自己優缺點',
-      '確認自��價值',
+      '確認自己價值',
     ],
     reflections: [
       '我是不是已經快撐不住了？',
@@ -127,7 +127,7 @@ export const abilitiesData = [
   },
 ]
 
-// ─── 今日壓力包子卡片 ────────────────────────────────────────────────────────
+// ─── 今日壓力包子卡片 ──────────────────────────────────────────────────────
 export const stressLevelData = [
   {
     id: 1,
@@ -146,7 +146,7 @@ export const stressLevelData = [
     result: {
       title: '你現在可能正處於高壓或情緒過載的狀態。',
       content:
-        '建議先不要急著逼自己整理好所有事情，先做一件最小的照顧行動，例如：喝水、深呼吸、離開座位一分鐘、閉眼休息 30 秒。\n\n你需要的不一定是解決，而是先讓自己有空間。',
+        '建議先不要急著逼自己整理好所有事情，先做一件最小的照顧行動，例如：喝水、深呼吸、離開座位一分鐘、閉眼休息 30 秒。\n\n你需要的不是更努力，而是先讓自己穩下來。',
       tip: '先穩住自己',
       tipColor: 'text-red-500',
     },
@@ -168,7 +168,7 @@ export const stressLevelData = [
     result: {
       title: '你可能累了很久，只是還沒真正停下來。',
       content:
-        '建議今天幫自己安排一個短暫的恢復時段，哪怕只是安靜坐一下、伸展一下、慢慢喝一杯飲品，都會有幫助。\n\n疲憊不是脆弱，而是身體在求救。',
+        '建議今天幫自己安排一個短暫的恢復時段，哪怕只是安靜坐一下、伸展一下、慢慢喝一杯飲品，都會有幫助。\n\n疲憊不是脆弱，而是身體在提醒你該補充能量了。',
       tip: '給自己補充能量',
       tipColor: 'text-orange-500',
     },
@@ -190,7 +190,7 @@ export const stressLevelData = [
     result: {
       title: '你現在可能不是情緒爆發，而是有些麻、悶、卡住。',
       content:
-        '建議試著問問自己：「我現在最需要的是什麼？」\n\n可能是喘口氣、可能是有人理解、也可能只是暫停一下。\n\n先理解自己，才能慢慢找回方向。',
+        '建議試著問問自己：「我現在最需要的是什麼？」\n\n可能是喘口氣、可能是有人理解、也可能只是暫停一下。\n\n先理解自己，才能慢慢找回流動感。',
       tip: '先問問自己需要什麼',
       tipColor: 'text-yellow-600',
     },
@@ -241,7 +241,7 @@ export const stressLevelData = [
   },
 ]
 
-// ─── 情境應用職類卡片 ────────────────────────────────────────────────────────
+// ─── 情境應用職類卡片 ──────────────────────────────────────────────────────
 export const scenarioCategories = [
   {
     id: 'pharmacist',
@@ -287,7 +287,7 @@ export const scenarioCategories = [
   },
 ]
 
-// ─── 藥師情境測驗題目 ────────────────────────────────────────────────────────
+// ─── 藥師情境測驗題目 ──────────────────────────────────────────────────────
 export const pharmacistQuizData = [
   {
     id: 1,
@@ -296,7 +296,7 @@ export const pharmacistQuizData = [
     abilityEnglish: 'Self-Awareness',
     abilityEmoji: '🌸',
     scenario:
-      '門診尖峰時段，你已經連續調劑兩個小時。突然被學姊點名：「剛剛一張處方拿錯藥了，要更換。」此時，你心裡緊張起來，開始自責，心想：「我怎麼會犯這種錯？」\n\n你看到後面還有很多處方等待處理，時間壓力也讓你越來越喘不過氣。',
+      '門診尖峰時段，你已經連續調劑兩個小時。突然被學姊點名：「剛剛一張處方拿錯藥了，要更換。」此時，你心裡緊張起來，開始自責，心想：「我怎麼會這樣，如果病人因為我而吃錯藥，該怎麼辦？」\n\n同時你也感覺到：手在發抖、心跳變快、注意力開始下降，但我的檯面上還有很多處方在等。',
     question: '在這個情境中，你會怎麼做？',
     options: [
       { id: 'a', text: '我能察覺自己已接近壓力極限', isReverse: false },
@@ -317,7 +317,7 @@ export const pharmacistQuizData = [
     abilityEnglish: 'Self-Management',
     abilityEmoji: '🌿',
     scenario:
-      '病人因為等太久，開始不耐煩，語氣變重，甚至大聲抱怨：「你們到底有沒有在處理，為什麼這麼慢？到底要我等多久！」\n\n你其實已經很累，也覺得委屈，但你仍要面對病人的情緒。',
+      '病人因為等太久，開始不耐煩，語氣變重，甚至大聲抱怨：「你們到底有沒有在處理，為什麼這麼慢？到底要我等多久！」\n\n你其實已經很累，內心瞬間冒出不爽與委屈，但現場還有其他病人在看。',
     question: '面對病人的情緒爆發，你會如何應對？',
     options: [
       { id: 'a', text: '我能控制情緒不直接回應病人', isReverse: false },
@@ -338,7 +338,7 @@ export const pharmacistQuizData = [
     abilityEnglish: 'Social Awareness',
     abilityEmoji: '💙',
     scenario:
-      '你向病人解釋藥物重要性，但對方一直說：「我吃這個很不舒服！我想停藥！我不想吃了！」甚至表現出抗拒與不信任你。\n\n原本你覺得「已經講很多次了」有點煩，但你也看到他其實很焦慮。',
+      '你向病人解釋藥物重要性，但對方一直說：「我吃這個很不舒服！我想停藥！我不想吃了！」甚至表現出抗拒與不信任你。\n\n原本你覺得「已經講很多次，這個藥很重要，不能停藥」，但你仔細觀察發現：病人其實有點焦慮，是否曾經有不好的用藥經驗。',
     question: '面對病人的抗拒，你會怎麼理解？',
     options: [
       { id: 'a', text: '我能理解病人不安與抗拒情緒', isReverse: false },
@@ -359,7 +359,7 @@ export const pharmacistQuizData = [
     abilityEnglish: 'Relationship Skills',
     abilityEmoji: '🤝',
     scenario:
-      '你發現某張處方可能不適當，打電話與醫師溝通，但醫師語氣很急，甚至有點不耐煩回你：「這個藥我一直都是這樣開，沒有問題！」\n\n你當下有點緊張，也擔心再說會惹怒對方，但你知道病人安全很重要。',
+      '你發現某張處方可能不適當，打電話與醫師溝通，但醫師語氣很急，甚至有點不耐煩回你：「這個藥我一直都是這樣開，沒有問題！」\n\n你當下卡住，不知道要不要再堅持下去。',
     question: '面對醫師的不耐回應，你會怎麼處理？',
     options: [
       { id: 'a', text: '我能在醫師不耐時冷靜表達處方疑慮', isReverse: false },
@@ -380,7 +380,7 @@ export const pharmacistQuizData = [
     abilityEnglish: 'Responsible Decision Making',
     abilityEmoji: '⚖️',
     scenario:
-      '前台發藥現場很忙，後面排滿病人等待領藥。你發現一張處方有疑慮，但如果確認會拖慢整體流程。\n\n此時，你心裡出現拉扯：「要不要先發再說？」但你也想到：如果真的有問題，後果會很嚴重。',
+      '前台發藥現場很忙，後面排滿病人等待領藥。你發現一張處方有疑慮，但如果確認會拖慢整體流程。\n\n此時，你心裡出現拉扯：「要不要先發藥之後再說～」「應該不會有問題吧～」',
     question: '面對流程與安全的拉扯，你會怎麼決定？',
     options: [
       { id: 'a', text: '我能辨識處方疑慮的病安風險', isReverse: false },
@@ -396,7 +396,7 @@ export const pharmacistQuizData = [
   },
 ]
 
-// ─── 學習補給：紓壓小幫手 ────────────────────────────────────────────────────
+// ─── 學習補給：紓壓小幫手 ────────────────────────────────────────────────
 export const learningSupportData = [
   {
     id: 'breathing',
@@ -407,7 +407,7 @@ export const learningSupportData = [
     accentColor: 'text-sky-600',
     btnColor: 'bg-sky-500 hover:bg-sky-600',
     description:
-      '當腦袋很滿、心跳很快、情緒快要衝上來時，先回到呼吸。跟著節奏慢慢吸氣、停留、吐氣，幫助自己從忙亂中慢慢��下來。',
+      '當腦袋很滿、心跳很快、情緒快要衝上來時，先回到呼吸。跟著節奏慢慢吸氣、停留、吐氣，幫助自己從忙亂中慢慢穩下來。',
     buttonLabel: '開始呼吸練習',
     action: 'breathing',
   },
@@ -446,67 +446,13 @@ export const learningSupportData = [
     accentColor: 'text-green-600',
     btnColor: 'bg-green-500 hover:bg-green-600',
     description:
-      '把今天讓你煩躁、疲累、委屈或卡住的事情寫下來、丟出去。你丟出去的壓力會被「接住」，讓你感覺不是自己在承受。',
+      '把今天讓你煩躁、疲累、委屈或卡住的事情，用互動方式寫下來、拖曳丟掉它。幫自己透過小小儀式放下一點重量。',
     buttonLabel: '開始丟掉壓力',
     action: 'throwstress',
   },
-
-  // ── 新增 4 個遊戲（Modal）─────────────────────────────────────────────
-  {
-    id: 'plant',
-    title: '種花紓壓小花園',
-    emoji: '🌷',
-    bgColor: 'bg-rose-50',
-    borderColor: 'border-rose-200',
-    accentColor: 'text-rose-600',
-    btnColor: 'bg-rose-500 hover:bg-rose-600',
-    description:
-      '點擊種下花朵、排出你喜歡的花圃。完成後可一鍵「分享花圃」複製到剪貼簿，送給想鼓勵的人。',
-    buttonLabel: '開始種花',
-    action: 'plant',
-  },
-  {
-    id: 'boxing',
-    title: '拳擊紓壓沙包',
-    emoji: '🥊',
-    bgColor: 'bg-orange-50',
-    borderColor: 'border-orange-200',
-    accentColor: 'text-orange-700',
-    btnColor: 'bg-orange-500 hover:bg-orange-600',
-    description:
-      '用點擊出拳把壓力打出去。會有連擊數與回饋效果，讓你「打得到、感覺得到」。',
-    buttonLabel: '開始出拳',
-    action: 'boxing',
-  },
-  {
-    id: 'bubble',
-    title: '泡泡紙解壓',
-    emoji: '🫧',
-    bgColor: 'bg-sky-50',
-    borderColor: 'border-sky-200',
-    accentColor: 'text-sky-700',
-    btnColor: 'bg-sky-500 hover:bg-sky-600',
-    description:
-      '像捏泡泡紙一樣把泡泡一顆顆戳破。支援重置，適合放空 30 秒。',
-    buttonLabel: '來戳泡泡',
-    action: 'bubble',
-  },
-  {
-    id: 'chime',
-    title: '敲一下，讓心慢下來',
-    emoji: '🔔',
-    bgColor: 'bg-teal-50',
-    borderColor: 'border-teal-200',
-    accentColor: 'text-teal-700',
-    btnColor: 'bg-teal-500 hover:bg-teal-600',
-    description:
-      '點一下敲鐘，跟著提示做 3 次慢呼吸。每一次敲擊都像提醒自己：我回來了。',
-    buttonLabel: '敲一下',
-    action: 'chime',
-  },
 ]
 
-// ─── 好站連結 ────────────────────────────────────────────────────────────────
+// ─── 好站連結 ──────────────────────────────────────────────────────────────
 export const resourceLinksData = [
   {
     id: 'chickensoup',
@@ -546,7 +492,7 @@ export const resourceLinksData = [
   },
 ]
 
-// ─── 翻翻卡：暖心包子卡片集 ────────────────────────────────────────────────
+// ─── 翻翻卡：暖心包子卡片集 ──────────────────────────────────────────────
 export const bunCards = [
   { emoji: '🌸', message: '今天辛苦了，你已經做得很好了。' },
   { emoji: '🌿', message: '先深呼吸，每一次吐氣都是放鬆的開始。' },
@@ -558,7 +504,7 @@ export const bunCards = [
   { emoji: '🌙', message: '讓自己休息，不是放棄，是為了繼續前行。' },
 ]
 
-// ─── 情緒戳戳樂 ────────────────────────────────────────────────────────────────
+// ─── 情緒戳戳樂 ──────────────────────────────────────────────────────────
 export const emotionPunchData = [
   { id: 1, emoji: '😤', name: '煩躁', message: '煩躁代表你在乎，先讓自己喘一口氣吧。' },
   { id: 2, emoji: '😔', name: '失落', message: '失落的時候，溫柔對待自己比任何事都重要。' },
