@@ -17,7 +17,7 @@ export const abilitiesData = [
       '辨識與認識情緒',
       '瞭解自我需求、價值觀',
       '認識自己優缺點',
-      '確認自己價值',
+      '確認自��價值',
     ],
     reflections: [
       '我是不是已經快撐不住了？',
@@ -91,7 +91,7 @@ export const abilitiesData = [
     skills: [
       '培養溝通能力與他人建立關係',
       '協調與合作能力',
-      '管理��突與面對拒絕',
+      '管理衝突與面對拒絕',
       '尋求協助',
     ],
     reflections: [
@@ -396,7 +396,7 @@ export const pharmacistQuizData = [
   },
 ]
 
-// ─── 學習補給：紓壓���幫手 ────────────────────────────────────────────────────
+// ─── 學習補給：紓壓小幫手 ────────────────────────────────────────────────────
 export const learningSupportData = [
   {
     id: 'breathing',
@@ -407,7 +407,7 @@ export const learningSupportData = [
     accentColor: 'text-sky-600',
     btnColor: 'bg-sky-500 hover:bg-sky-600',
     description:
-      '當腦袋很滿、心跳很快、情緒快要衝上來時，先回到呼吸。跟著節奏慢慢吸氣、停留、吐氣，幫助自己從忙亂中慢慢穩下來。',
+      '當腦袋很滿、心跳很快、情緒快要衝上來時，先回到呼吸。跟著節奏慢慢吸氣、停留、吐氣，幫助自己從忙亂中慢慢��下來。',
     buttonLabel: '開始呼吸練習',
     action: 'breathing',
   },
@@ -421,7 +421,7 @@ export const learningSupportData = [
     btnColor: 'bg-pink-400 hover:bg-pink-500',
     description:
       '透過可愛互動方式，點選今天最接近你的心情。每一種情緒都會有一句溫柔提醒，讓你知道：原來現在的我，不需要假裝沒事。',
-    buttonLabel: '來戳一��情緒',
+    buttonLabel: '來戳一下情緒',
     action: 'emotion',
   },
   {
@@ -446,12 +446,12 @@ export const learningSupportData = [
     accentColor: 'text-green-600',
     btnColor: 'bg-green-500 hover:bg-green-600',
     description:
-      '把今天讓你煩躁、疲累、委屈或卡住的事情，用互動方式寫下來、丟出去。讓你的壓力被「接住」並慢慢放下。',
+      '把今天讓你煩躁、疲累、委屈或卡住的事情寫下來、丟出去。你丟出去的壓力會被「接住」，讓你感覺不是自己在承受。',
     buttonLabel: '開始丟掉壓力',
     action: 'throwstress',
   },
 
-  // ── 新增 4 個遊戲（A：Modal）─────────────��───────────────────────────────
+  // ── 新增 4 個遊戲（Modal）─────────────────────────────────────────────
   {
     id: 'plant',
     title: '種花紓壓小花園',
@@ -461,7 +461,7 @@ export const learningSupportData = [
     accentColor: 'text-rose-600',
     btnColor: 'bg-rose-500 hover:bg-rose-600',
     description:
-      '點擊種下花朵、排出你喜歡的花圃。完成後可一鍵「分享花圃」把圖像複製到剪貼簿，送給想鼓勵的人。',
+      '點擊種下花朵、排出你喜歡的花圃。完成後可一鍵「分享花圃」複製到剪貼簿，送給想鼓勵的人。',
     buttonLabel: '開始種花',
     action: 'plant',
   },
@@ -474,7 +474,7 @@ export const learningSupportData = [
     accentColor: 'text-orange-700',
     btnColor: 'bg-orange-500 hover:bg-orange-600',
     description:
-      '用點擊/連打的方式出拳，看到回饋特效與連擊數。把壓力打出去，讓身體也跟著鬆一點。',
+      '用點擊出拳把壓力打出去。會有連擊數與回饋效果，讓你「打得到、感覺得到」。',
     buttonLabel: '開始出拳',
     action: 'boxing',
   },
@@ -487,7 +487,7 @@ export const learningSupportData = [
     accentColor: 'text-sky-700',
     btnColor: 'bg-sky-500 hover:bg-sky-600',
     description:
-      '像捏泡泡紙一樣把泡泡一顆顆戳破。支援「重置」與「自動補泡泡」，很適合放空 30 秒。',
+      '像捏泡泡紙一樣把泡泡一顆顆戳破。支援重置，適合放空 30 秒。',
     buttonLabel: '來戳泡泡',
     action: 'bubble',
   },
@@ -500,7 +500,7 @@ export const learningSupportData = [
     accentColor: 'text-teal-700',
     btnColor: 'bg-teal-500 hover:bg-teal-600',
     description:
-      '點一下敲鐘，跟著震動與光暈做 3 次慢呼吸。每次敲擊都像提醒自己：我回來了。',
+      '點一下敲鐘，跟著提示做 3 次慢呼吸。每一次敲擊都像提醒自己：我回來了。',
     buttonLabel: '敲一下',
     action: 'chime',
   },
