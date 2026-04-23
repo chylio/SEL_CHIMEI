@@ -65,7 +65,7 @@ export default function LearningSupportPage({ navigate }) {
               <p className="text-sub-text text-sm">立即可以使用的互動紓壓工具</p>
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {learningSupportData.map((tool) => (
               <SupportToolCard key={tool.id} tool={tool} />
             ))}
