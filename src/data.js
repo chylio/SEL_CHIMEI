@@ -450,6 +450,30 @@ export const learningSupportData = [
     buttonLabel: '開始丟掉壓力',
     action: 'throwstress',
   },
+  {
+    id: 'bubblepop',
+    title: '戳氣泡紓壓',
+    emoji: '🫧',
+    bgColor: 'bg-blue-50',
+    borderColor: 'border-blue-200',
+    accentColor: 'text-blue-600',
+    btnColor: 'bg-blue-400 hover:bg-blue-500',
+    description: '把壓力詞彙裝進氣泡裡，一顆一顆戳破它們！每戳破一顆，就少一份煩惱。',
+    buttonLabel: '開始戳氣泡',
+    action: 'bubblepop',
+  },
+  {
+    id: 'growflower',
+    title: '種花朵遊戲',
+    emoji: '🌸',
+    bgColor: 'bg-rose-50',
+    borderColor: 'border-rose-200',
+    accentColor: 'text-rose-600',
+    btnColor: 'bg-rose-400 hover:bg-rose-500',
+    description: '照顧自己就像種花一樣。點擊澆水，讓每朵花從種子慢慢開花，種滿花圃就完成了！',
+    buttonLabel: '開始種花',
+    action: 'growflower',
+  },
 ]
 
 // ─── 好站連結 ──────────────────────────────────────────────────────────────

@@ -485,6 +485,147 @@ function ThrowStress({ onClose }) {
   )
 }
 
+// ─── 戳氣泡紓壓 ────────────────────────────────────────────────────────────
+const BUBBLE_LIST = [
+  { id: 1, word: '焦慮', color: 'bg-sky-200',    size: 'w-20 h-20', delay: '0s'   },
+  { id: 2, word: '煩躁', color: 'bg-pink-200',   size: 'w-16 h-16', delay: '0.2s' },
+  { id: 3, word: '疲憊', color: 'bg-violet-200', size: 'w-24 h-24', delay: '0.4s' },
+  { id: 4, word: '壓力', color: 'bg-amber-200',  size: 'w-20 h-20', delay: '0.6s' },
+  { id: 5, word: '緊張', color: 'bg-teal-200',   size: 'w-16 h-16', delay: '0.8s' },
+  { id: 6, word: '委屈', color: 'bg-rose-200',   size: 'w-24 h-24', delay: '1s'   },
+  { id: 7, word: '不安', color: 'bg-sky-300',    size: 'w-20 h-20', delay: '0.3s' },
+  { id: 8, word: '煩悶', color: 'bg-purple-200', size: 'w-16 h-16', delay: '0.7s' },
+  { id: 9, word: '擔心', color: 'bg-green-200',  size: 'w-24 h-24', delay: '0.5s' },
+]
+
+function BubblePop({ onClose }) {
+  const [bubbles, setBubbles] = useState(BUBBLE_LIST.map(b => ({ ...b, popped: false, popping: false })))
+  const [done, setDone] = useState(false)
+
+  const pop = (id) => {
+    setBubbles(prev => prev.map(b => b.id === id ? { ...b, popping: true } : b))
+    setTimeout(() => {
+      setBubbles(prev => {
+        const next = prev.map(b => b.id === id ? { ...b, popped: true } : b)
+        if (next.every(b => b.popped)) setDone(true)
+        return next
+      })
+    }, 300)
+  }
+
+  const reset = () => {
+    setBubbles(BUBBLE_LIST.map(b => ({ ...b, popped: false, popping: false })))
+    setDone(false)
+  }
+
+  return (
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl">
+        <h3 className="font-bold text-warm-text text-xl mb-2 text-center">戳氣泡紓壓</h3>
+        <p className="text-sub-text text-sm mb-6 text-center">點擊氣泡，把壓力一顆一顆戳破！</p>
+        {done ? (
+          <div className="text-center py-4">
+            <div className="text-6xl mb-4">🎉</div>
+            <p className="text-warm-text font-bold text-lg mb-1">你把所有壓力都戳破了！</p>
+            <p className="text-sub-text text-sm mb-6">輕多了吧？</p>
+            <div className="flex gap-3">
+              <button onClick={reset} className="btn-outline flex-1">再來一輪</button>
+              <button onClick={onClose} className="btn-primary flex-1">關閉</button>
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-wrap gap-3 justify-center items-center min-h-48">
+            {bubbles.map(b => !b.popped && (
+              <button
+                key={b.id}
+                onClick={() => pop(b.id)}
+                style={{ animationDelay: b.delay }}
+                className={`${b.size} ${b.color} rounded-full flex items-center justify-center font-bold text-sm text-gray-700 shadow-md cursor-pointer transition-all duration-300 ${b.popping ? 'scale-0 opacity-0' : 'animate-bounce scale-100 opacity-100'}`}
+              >
+                {b.word}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// ─── 種花朵遊戲 ────────────────────────────────────────────────────────────
+const FLOWER_STAGES = ['🌱', '🌿', '🌷', '🌸']
+
+function GrowFlower({ onClose }) {
+  const [flowers, setFlowers] = useState([0, 0, 0, 0, 0])
+  const [watering, setWatering] = useState(null)
+
+  const water = (idx) => {
+    if (flowers[idx] >= 3) return
+    setWatering(idx)
+    setTimeout(() => {
+      setFlowers(prev => prev.map((f, i) => i === idx ? Math.min(f + 1, 3) : f))
+      setWatering(null)
+    }, 300)
+  }
+
+  const bloomed = flowers.filter(f => f === 3).length
+  const done = bloomed === 5
+
+  const reset = () => setFlowers([0, 0, 0, 0, 0])
+
+  return (
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl">
+        <h3 className="font-bold text-warm-text text-xl mb-2 text-center">種花朵遊戲</h3>
+        <p className="text-sub-text text-sm mb-4 text-center">澆水讓每朵花慢慢開放</p>
+        {done ? (
+          <div className="text-center py-4">
+            <div className="text-5xl mb-4">🌺🌸🌼</div>
+            <p className="text-warm-text font-bold text-lg mb-1">花圃種滿了！</p>
+            <p className="text-sub-text text-sm mb-6">你也值得被這樣溫柔對待 🌸</p>
+            <div className="flex gap-3">
+              <button onClick={reset} className="btn-outline flex-1">再種一次</button>
+              <button onClick={onClose} className="btn-primary flex-1">關閉</button>
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="mb-5">
+              <div className="flex justify-between text-xs text-sub-text mb-1.5">
+                <span>開花進度</span>
+                <span>{bloomed} / 5</span>
+              </div>
+              <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-rose-400 rounded-full transition-all duration-500"
+                  style={{ width: `${(bloomed / 5) * 100}%` }}
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-5 gap-2 mb-6">
+              {flowers.map((stage, idx) => (
+                <div key={idx} className="flex flex-col items-center gap-2">
+                  <div className={`text-3xl transition-transform duration-300 ${watering === idx ? 'scale-125' : 'scale-100'}`}>
+                    {FLOWER_STAGES[stage]}
+                  </div>
+                  <button
+                    onClick={() => water(idx)}
+                    disabled={stage === 3}
+                    className={`text-xs px-2 py-1 rounded-full transition-all ${stage === 3 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-rose-100 hover:bg-rose-200 text-rose-600'}`}
+                  >
+                    💧
+                  </button>
+                </div>
+              ))}
+            </div>
+            <button onClick={onClose} className="w-full py-2.5 px-6 rounded-full border border-gray-200 text-sub-text hover:bg-gray-50 text-sm font-medium">關閉</button>
+          </>
+        )}
+      </div>
+    </div>
+  )
+}
+
 // ─── 主卡片 ────────────────────────────────────────────────────────────────
 export default function SupportToolCard({ tool }) {
   const [activeModal, setActiveModal] = useState(null)
@@ -513,6 +654,8 @@ export default function SupportToolCard({ tool }) {
       {activeModal === 'emotion'     && <EmotionPunch      onClose={closeModal} />}
       {activeModal === 'buncard'     && <BunFlipCard        onClose={closeModal} />}
       {activeModal === 'throwstress' && <ThrowStress        onClose={closeModal} />}
+      {activeModal === 'bubblepop'   && <BubblePop          onClose={closeModal} />}
+      {activeModal === 'growflower'  && <GrowFlower         onClose={closeModal} />}
     </>
   )
 }
