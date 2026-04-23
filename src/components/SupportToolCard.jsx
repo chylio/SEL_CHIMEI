@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { stressLevelData, bunCards, emotionPunchData } from '../data'
 
 // ─── 呼吸練習 ────────────────────────────────────────────────────────────────
@@ -95,7 +95,7 @@ function BreathingExercise({ onClose }) {
   )
 }
 
-// ─── 情緒戳戳樂 ───────────────────────────────────────────────────────────
+// ─── 情緒戳戳樂 ────────────────────────────────────────────────────────────────
 function EmotionPunch({ onClose }) {
   const [selected, setSelected] = useState(null)
   return (
@@ -135,7 +135,7 @@ function EmotionPunch({ onClose }) {
   )
 }
 
-// ─── 包子翻翻卡 ───────────────────────────────────────────────────────────
+// ─── 包子翻翻卡 ────────────────────────────────────────────────────────────────
 function BunFlipCard({ onClose }) {
   const [flipped, setFlipped] = useState(null)
   const pick = () => {
@@ -170,24 +170,106 @@ function BunFlipCard({ onClose }) {
   )
 }
 
-// ─── 把壓力丟出去 ─────────────────────────────────────────────────────────
+/**
+ * 把壓力丟出去：加入「被接住」的宣洩回饋動畫
+ * phase: idle | throwing | caught | done
+ */
 function ThrowStress({ onClose }) {
   const [text, setText] = useState('')
-  const [thrown, setThrown] = useState(false)
+  const [phase, setPhase] = useState('idle')
+
+  const message = useMemo(() => {
+    const msgs = [
+      '我接住了，你可以先放下。',
+      '你已經很努力了，這些重量先交給我。',
+      '收到。你不是一個人扛著。',
+      '辛苦了，先把它放在這裡。',
+    ]
+    return msgs[Math.floor(Math.random() * msgs.length)]
+  }, [phase])
+
+  const canThrow = text.trim().length > 0
+
+  const startThrow = () => {
+    if (!canThrow) return
+    setPhase('throwing')
+
+    // throwing → caught → done
+    window.setTimeout(() => setPhase('caught'), 650)
+    window.setTimeout(() => setPhase('done'), 1400)
+  }
+
+  const reset = () => {
+    setText('')
+    setPhase('idle')
+  }
 
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl">
+      <div className="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl overflow-hidden">
         <h3 className="font-bold text-warm-text text-xl mb-2 text-center">把壓力丟出去</h3>
         <p className="text-sub-text text-sm mb-4 text-center">寫下讓你煩躁或疲累的事，再把它丟掉</p>
 
-        {thrown ? (
-          <div className="text-center py-4">
-            <div className="text-5xl mb-3">🗑️</div>
-            <p className="font-bold text-warm-text text-lg mb-2">已丟出去了！</p>
-            <p className="text-sub-text text-sm mb-5">放下了一點點重量，做得很好。</p>
+        {/* 動畫舞台 */}
+        <div className="relative h-28 rounded-2xl border border-gray-100 bg-gradient-to-br from-amber-50 via-white to-sky-50 mb-4 overflow-hidden">
+          {/* 接住的光暈 */}
+          <div
+            className={`absolute right-6 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full
+              ${phase === 'caught' || phase === 'done' ? 'opacity-100 scale-110' : 'opacity-0 scale-75'}
+              transition-all duration-500`}
+            style={{
+              background: 'radial-gradient(circle, rgba(45,212,191,0.35), rgba(45,212,191,0.0) 70%)',
+              filter: 'blur(0px)',
+            }}
+          />
+
+          {/* 接住的人（用 emoji 表達） */}
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 text-3xl select-none">
+            🤲
+          </div>
+
+          {/* 壓力球 */}
+          <div
+            className={`absolute left-6 top-1/2 -translate-y-1/2 text-3xl select-none
+              ${phase === 'idle' ? '' : ''}
+            `}
+            style={{
+              transform:
+                phase === 'idle'
+                  ? 'translate(0px, -50%)'
+                  : phase === 'throwing'
+                    ? 'translate(170px, -64px) rotate(25deg)'
+                    : phase === 'caught'
+                      ? 'translate(235px, -50%) scale(0.9)'
+                      : 'translate(235px, -50%) scale(0.0)',
+              transition:
+                phase === 'throwing'
+                  ? 'transform 650ms cubic-bezier(0.2, 0.9, 0.2, 1)'
+                  : 'transform 500ms ease',
+              position: 'absolute',
+            }}
+          >
+            🫧
+          </div>
+
+          {/* 丟出後的回饋字 */}
+          <div
+            className={`absolute left-0 right-0 bottom-3 text-center text-xs font-semibold
+              ${phase === 'caught' || phase === 'done' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}
+              transition-all duration-400`}
+            style={{ color: '#0f766e' }}
+          >
+            {message}
+          </div>
+        </div>
+
+        {phase === 'done' ? (
+          <div className="text-center py-1">
+            <div className="text-5xl mb-3">🌿</div>
+            <p className="font-bold text-warm-text text-lg mb-2">已接住了</p>
+            <p className="text-sub-text text-sm mb-5">你願意丟出來就很不容易了。先深呼吸一下。</p>
             <div className="flex gap-3">
-              <button onClick={() => { setText(''); setThrown(false) }} className="btn-outline flex-1 text-sm">繼續丟</button>
+              <button onClick={reset} className="btn-outline flex-1 text-sm">繼續丟</button>
               <button onClick={onClose} className="btn-primary flex-1 text-sm">好多了，謝謝</button>
             </div>
           </div>
@@ -199,17 +281,24 @@ function ThrowStress({ onClose }) {
               placeholder="今天讓我最煩的是……"
               rows={4}
               className="w-full border border-gray-200 rounded-xl p-3 text-sm text-warm-text resize-none focus:outline-none focus:border-amber-300 mb-4"
+              disabled={phase === 'throwing' || phase === 'caught'}
             />
             <div className="flex gap-3">
               <button
-                onClick={() => { if (text.trim()) setThrown(true) }}
-                disabled={!text.trim()}
+                onClick={startThrow}
+                disabled={!canThrow || phase !== 'idle'}
                 className={`flex-1 py-2.5 px-4 rounded-full text-sm font-medium transition-all
-                  ${text.trim() ? 'btn-primary' : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}
+                  ${canThrow && phase === 'idle' ? 'btn-primary' : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}
               >
                 🗑️ 丟出去！
               </button>
-              <button onClick={onClose} className="flex-1 py-2.5 px-4 rounded-full border border-gray-200 text-sub-text hover:bg-gray-50 text-sm">關閉</button>
+              <button
+                onClick={onClose}
+                className="flex-1 py-2.5 px-4 rounded-full border border-gray-200 text-sub-text hover:bg-gray-50 text-sm"
+                disabled={phase === 'throwing' || phase === 'caught'}
+              >
+                關閉
+              </button>
             </div>
           </>
         )}
@@ -218,7 +307,7 @@ function ThrowStress({ onClose }) {
   )
 }
 
-// ─── 主卡片 ───────────────────────────────────────────────────────────────
+// ─── 主卡片 ────────────────────────────────────────────────────────────────
 export default function SupportToolCard({ tool }) {
   const [activeModal, setActiveModal] = useState(null)
 
