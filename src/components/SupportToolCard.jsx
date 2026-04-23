@@ -1,33 +1,39 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { bunCards, emotionPunchData } from '../data'
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 小工具：安全複製文字
-function copyText(text) {
-  if (!text) return Promise.resolve(false)
-  if (navigator?.clipboard?.writeText) {
-    return navigator.clipboard.writeText(text).then(() => true).catch(() => false)
+// 小工具：複製文字到剪貼簿（分享花圃會用到）
+async function copyText(text) {
+  if (!text) return false
+  try {
+    if (navigator?.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text)
+      return true
+    }
+  } catch {
+    // ignore and fallback
   }
-  // fallback
+
   try {
     const ta = document.createElement('textarea')
     ta.value = text
+    ta.style.position = 'fixed'
+    ta.style.opacity = '0'
     document.body.appendChild(ta)
+    ta.focus()
     ta.select()
     document.execCommand('copy')
     document.body.removeChild(ta)
-    return Promise.resolve(true)
+    return true
   } catch {
-    return Promise.resolve(false)
+    return false
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
 // ─── 呼吸練習 ────────────────────────────────────────────────────────────────
 function BreathingExercise({ onClose }) {
-  const [phase, setPhase] = useState('idle') // idle | inhale | hold | exhale
+  const [phase, setPhase] = useState('idle') // idle | inhale | hold | exhale | done
   const [count, setCount] = useState(0)
-  const [cycles, setCycles] = useState(0)
   const [timer, setTimer] = useState(null)
 
   const phases = [
@@ -117,7 +123,6 @@ function BreathingExercise({ onClose }) {
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
 // ─── 情緒戳戳樂 ────────────────────────────────────────────────────────────────
 function EmotionPunch({ onClose }) {
   const [selected, setSelected] = useState(null)
@@ -158,7 +163,6 @@ function EmotionPunch({ onClose }) {
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
 // ─── 包子翻翻卡 ────────────────────────────────────────────────────────────────
 function BunFlipCard({ onClose }) {
   const [flipped, setFlipped] = useState(null)
@@ -194,8 +198,7 @@ function BunFlipCard({ onClose }) {
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// ─── 把壓力丟出去（強化：被接住的回饋）────────────────────────────────────────
+// ─── 把壓力丟出去（丟出→被接住→回應）────────────────────────────────────────
 function ThrowStress({ onClose }) {
   const [text, setText] = useState('')
   const [phase, setPhase] = useState('idle') // idle | throwing | caught | done
@@ -315,8 +318,7 @@ function ThrowStress({ onClose }) {
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// ─── 新遊戲 1：種花花園（可分享）──────────────────────────────────────────────
+// ─── 新遊戲 1：種花紓壓花園（可分享：複製文字花圃）────────────────────────────
 function PlantGarden({ onClose }) {
   const [seed, setSeed] = useState('🌷')
   const [cells, setCells] = useState(() => Array.from({ length: 36 }, () => null)) // 6x6
@@ -335,7 +337,6 @@ function PlantGarden({ onClose }) {
   const clear = () => setCells(Array.from({ length: 36 }, () => null))
 
   const share = async () => {
-    // 產出簡單的文字花圃（保底分享）
     const lines = []
     for (let r = 0; r < 6; r++) {
       const row = cells.slice(r * 6, r * 6 + 6).map(c => c || '⬜').join('')
@@ -372,7 +373,6 @@ function PlantGarden({ onClose }) {
               key={idx}
               onClick={() => plantAt(idx)}
               className="h-10 rounded-xl border border-white bg-white/70 hover:bg-white transition-colors text-xl flex items-center justify-center"
-              style={{ animation: c ? 'stressPop 260ms ease-out' : undefined }}
             >
               {c || ' '}
             </button>
@@ -380,7 +380,7 @@ function PlantGarden({ onClose }) {
         </div>
 
         {toast && (
-          <div className="mb-3 text-center text-xs font-semibold text-teal-700 bg-teal-50 border border-teal-100 rounded-xl p-2" style={{ animation: 'floatUp 220ms ease-out' }}>
+          <div className="mb-3 text-center text-xs font-semibold text-teal-700 bg-teal-50 border border-teal-100 rounded-xl p-2">
             {toast}
           </div>
         )}
@@ -398,8 +398,7 @@ function PlantGarden({ onClose }) {
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// ─── 新遊戲 2：拳擊沙包 ───────────────────────────────────────────────────────
+// ─── 新遊戲 2：拳擊紓壓沙包 ───────────────────────────────────────────────────
 function BoxingGame({ onClose }) {
   const [hits, setHits] = useState(0)
   const [combo, setCombo] = useState(0)
@@ -415,228 +414,4 @@ function BoxingGame({ onClose }) {
     setLastHitAt(now)
     setShake(true)
     setBurst(true)
-    window.setTimeout(() => setShake(false), 180)
-    window.setTimeout(() => setBurst(false), 220)
-  }
-
-  const reset = () => {
-    setHits(0)
-    setCombo(0)
-    setLastHitAt(0)
-  }
-
-  const comboLabel =
-    combo >= 12 ? '爆擊節奏！' :
-    combo >= 7 ? '很順！' :
-    combo >= 3 ? '繼續！' :
-    combo >= 1 ? '出拳！' : ''
-
-  return (
-    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl text-center">
-        <h3 className="font-bold text-warm-text text-xl mb-1">拳擊紓壓沙包</h3>
-        <p className="text-sub-text text-sm mb-4">點擊沙包出拳。越連續，連擊越高。</p>
-
-        <div className="flex items-center justify-center gap-3 mb-4">
-          <div className="bg-orange-50 border border-orange-100 rounded-2xl px-4 py-2">
-            <div className="text-xs text-sub-text">出拳</div>
-            <div className="text-xl font-black text-orange-600">{hits}</div>
-          </div>
-          <div className="bg-amber-50 border border-amber-100 rounded-2xl px-4 py-2">
-            <div className="text-xs text-sub-text">連擊</div>
-            <div className="text-xl font-black text-amber-600">{combo}</div>
-          </div>
-        </div>
-
-        <button
-          onClick={hit}
-          className="relative w-full h-40 rounded-3xl bg-gradient-to-br from-orange-50 via-white to-amber-50 border border-gray-100 flex items-center justify-center select-none"
-        >
-          {/* burst */}
-          {burst && (
-            <div
-              className="absolute w-24 h-24 rounded-full"
-              style={{
-                background: 'radial-gradient(circle, rgba(251,146,60,0.35), rgba(251,146,60,0.0) 70%)',
-                animation: 'pingSoft 420ms ease-out',
-              }}
-            />
-          )}
-
-          <div
-            className="text-7xl"
-            style={{
-              transform: shake ? 'translateX(-6px) rotate(-6deg)' : 'translateX(0px) rotate(0deg)',
-              transition: 'transform 180ms ease',
-            }}
-          >
-            🥊
-          </div>
-
-          <div className="absolute bottom-3 left-0 right-0 text-xs font-semibold" style={{ color: '#c2410c' }}>
-            {comboLabel}
-          </div>
-        </button>
-
-        <div className="flex gap-2 mt-4">
-          <button onClick={reset} className="btn-outline flex-1 text-sm">重置</button>
-          <button onClick={onClose} className="btn-primary flex-1 text-sm">關閉</button>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// ─── 新遊戲 3：泡泡紙 ─────────────────────────────────────────────────────────
-function BubblePop({ onClose }) {
-  const make = () => Array.from({ length: 40 }, (_, i) => ({ id: i + 1, popped: false }))
-  const [bubbles, setBubbles] = useState(make)
-  const poppedCount = bubbles.filter(b => b.popped).length
-
-  const pop = (id) => {
-    setBubbles((prev) => prev.map(b => (b.id === id ? { ...b, popped: true } : b)))
-  }
-
-  const reset = () => setBubbles(make())
-
-  return (
-    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl">
-        <h3 className="font-bold text-warm-text text-xl mb-1 text-center">泡泡紙解壓</h3>
-        <p className="text-sub-text text-sm mb-4 text-center">把泡泡一顆顆戳掉。你不需要做很多，戳幾顆也可以。</p>
-
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-xs text-sub-text">已戳破</span>
-          <span className="text-xs font-bold text-muted-orange">{poppedCount} / {bubbles.length}</span>
-        </div>
-
-        <div className="grid grid-cols-8 gap-2 bg-sky-50/60 border border-sky-100 rounded-2xl p-3 mb-4">
-          {bubbles.map(b => (
-            <button
-              key={b.id}
-              onClick={() => pop(b.id)}
-              disabled={b.popped}
-              className={`h-7 rounded-full border transition-all
-                ${b.popped ? 'bg-gray-100 border-gray-200 cursor-not-allowed' : 'bg-white border-sky-200 hover:bg-sky-50'}`}
-              style={{ animation: !b.popped ? undefined : 'stressPop 200ms ease-out' }}
-              title={b.popped ? '已戳破' : '戳我'}
-            >
-              {!b.popped ? ' ' : ' '}
-            </button>
-          ))}
-        </div>
-
-        <div className="flex gap-2">
-          <button onClick={reset} className="btn-outline flex-1 text-sm">重置泡泡</button>
-          <button onClick={onClose} className="btn-primary flex-1 text-sm">關閉</button>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// ─── 新遊戲 4：敲鐘慢呼吸 ─────────────────────────────────────────────────────
-function ChimeBreath({ onClose }) {
-  const [count, setCount] = useState(0)
-  const [toast, setToast] = useState('')
-
-  const ring = () => {
-    const next = Math.min(3, count + 1)
-    setCount(next)
-
-    if (next === 1) setToast('第 1 次：慢慢吸氣…')
-    if (next === 2) setToast('第 2 次：停一下，再吐氣…')
-    if (next === 3) setToast('第 3 次：很好，回到當下。')
-
-    window.setTimeout(() => setToast(''), 1600)
-  }
-
-  const reset = () => setCount(0)
-
-  return (
-    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl text-center overflow-hidden">
-        <h3 className="font-bold text-warm-text text-xl mb-1">敲一下，讓心慢下來</h3>
-        <p className="text-sub-text text-sm mb-4">敲 3 次，每一次都做一次慢呼吸。</p>
-
-        <div className="relative w-full h-44 rounded-3xl border border-teal-100 bg-gradient-to-br from-teal-50 via-white to-sky-50 flex items-center justify-center mb-3 overflow-hidden">
-          {/* pulse ring */}
-          {toast && (
-            <div
-              className="absolute w-40 h-40 rounded-full"
-              style={{
-                background: 'radial-gradient(circle, rgba(20,184,166,0.25), rgba(20,184,166,0.0) 70%)',
-                animation: 'pingSoft 520ms ease-out',
-              }}
-            />
-          )}
-
-          <button
-            onClick={ring}
-            className="w-28 h-28 rounded-3xl bg-white border border-teal-100 shadow-sm hover:shadow-md transition-all flex items-center justify-center"
-            style={{ animation: toast ? 'stressPop 220ms ease-out' : undefined }}
-          >
-            <span className="text-6xl">🔔</span>
-          </button>
-
-          <div className="absolute bottom-3 left-0 right-0 text-xs font-semibold text-teal-700">
-            {count}/3 次
-          </div>
-        </div>
-
-        {toast && (
-          <div className="mb-3 text-center text-xs font-semibold text-teal-700 bg-teal-50 border border-teal-100 rounded-xl p-2" style={{ animation: 'floatUp 220ms ease-out' }}>
-            {toast}
-          </div>
-        )}
-
-        <div className="flex gap-2">
-          <button onClick={reset} className="btn-outline flex-1 text-sm">重置</button>
-          <button onClick={onClose} className="btn-primary flex-1 text-sm">關閉</button>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// ─── 主卡片 ────────────────────────────────────────────────────────────────
-export default function SupportToolCard({ tool }) {
-  const [activeModal, setActiveModal] = useState(null)
-
-  const openModal = () => setActiveModal(tool.action)
-  const closeModal = () => setActiveModal(null)
-
-  return (
-    <>
-      <div className={`card-base border ${tool.borderColor} ${tool.bgColor} card-hover p-6 flex flex-col`}>
-        <div className="flex items-start gap-4 mb-4">
-          <div className="text-3xl">{tool.emoji}</div>
-          <div>
-            <h3 className="font-bold text-warm-text text-base mb-1">{tool.title}</h3>
-          </div>
-        </div>
-        <p className="text-sub-text text-sm leading-relaxed mb-4 flex-1">{tool.description}</p>
-        <button
-          onClick={openModal}
-          className={`w-full text-white text-sm font-medium py-2.5 px-4 rounded-full ${tool.btnColor} transition-all shadow-sm hover:shadow-md mt-auto`}
-        >
-          {tool.buttonLabel}
-        </button>
-      </div>
-
-      {activeModal === 'breathing' && <BreathingExercise onClose={closeModal} />}
-      {activeModal === 'emotion' && <EmotionPunch onClose={closeModal} />}
-      {activeModal === 'buncard' && <BunFlipCard onClose={closeModal} />}
-      {activeModal === 'throwstress' && <ThrowStress onClose={closeModal} />}
-
-      {/* 新增 4 個遊戲 modal */}
-      {activeModal === 'plant' && <PlantGarden onClose={closeModal} />}
-      {activeModal === 'boxing' && <BoxingGame onClose={closeModal} />}
-      {activeModal === 'bubble' && <BubblePop onClose={closeModal} />}
-      {activeModal === 'chime' && <ChimeBreath onClose={closeModal} />}
-    </>
-  )
-}
+    window
