@@ -63,7 +63,7 @@ function HeroSection({ navigate }) {
                 <div className="absolute inset-0 bg-gradient-to-t from-amber-100/20 via-transparent to-transparent" />
               </div>
 
-              <div className="absolute top-6 right-0 sm:right-2 bg-white rounded-2xl shadow-card px-5 py-3 flex items-center gap-2 border border-amber-100 animate-bounce" style={{ animationDuration: '2.5s' }}>
+              <div className="absolute top-6 right-0 sm:right-2 bg-white rounded-2xl shadow-card px-5 py-3 flex items-center gap-2 border border-amber-100 animate-bounce" style={{ animationDuratio[...]
                 <span className="text-2xl">☕</span>
                 <span className="text-base font-semibold text-warm-text">先喘口氣</span>
               </div>
@@ -87,7 +87,7 @@ function HeroSection({ navigate }) {
                 <circle cx="44"  cy="270" r="5" fill="#F4A261" opacity="0.8" />
                 <circle cx="336" cy="270" r="5" fill="#F4A261" opacity="0.8" />
                 <rect x="55" y="245" width="270" height="38" rx="8" fill="#FDF8F0" opacity="0.95" />
-                <text fontSize="36" fontWeight="900" fontFamily="Arial Black, Impact, sans-serif" fill="url(#selArcGrad)" letterSpacing="18" style={{ filter: 'drop-shadow(0px 1px 3px rgba(232,97,10,0.3))' }}>
+                <text fontSize="36" fontWeight="900" fontFamily="Arial Black, Impact, sans-serif" fill="url(#selArcGrad)" letterSpacing="18" style={{ filter: 'drop-shadow(0px 1px 3px rgba(232,97,1[...]
                   <textPath href="#selLetterArc" startOffset="50%" textAnchor="middle">S · E · L</textPath>
                 </text>
                 <text fontSize="12" fontWeight="700" fontFamily="Noto Sans TC, sans-serif" fill="#C4825A" letterSpacing="5">
@@ -105,10 +105,10 @@ function HeroSection({ navigate }) {
 
 // FeatureCards — 內嵌
 const featureList = [
-  { id: 'abilities',        emoji: '✨', title: 'SEL 五大能力', description: '認識 SEL 五大核心能力，建立自我理解與人際互動的基礎。',       bgColor: 'bg-gradient-to-br from-pink-50 to-rose-50', borderColor: 'border-pink-200', hoverBorder: 'hover:border-pink-300', iconBg: 'bg-pink-100' },
-  { id: 'selfcheck',        emoji: '🌡️', title: '自我檢測',    description: '透過今日壓力指數與簡易檢測，快速了解自己的狀態。',               bgColor: 'bg-gradient-to-br from-amber-50 to-orange-50', borderColor: 'border-amber-200', hoverBorder: 'hover:border-amber-300', iconBg: 'bg-amber-100' },
-  { id: 'scenario',         emoji: '🎭', title: '情境應用',    description: '用醫療職場情境練習思考與回應，提升情緒調節與應對能力。',           bgColor: 'bg-gradient-to-br from-sky-50 to-blue-50', borderColor: 'border-sky-200', hoverBorder: 'hover:border-sky-300', iconBg: 'bg-sky-100' },
-  { id: 'learning-support', emoji: '🌈', title: '學習補給',    description: '提供有趣紓壓遊戲、放鬆活動與實用資源，幫自己充電。',               bgColor: 'bg-gradient-to-br from-teal-50 to-green-50', borderColor: 'border-teal-200', hoverBorder: 'hover:border-teal-300', iconBg: 'bg-teal-100' },
+  { id: 'abilities',        emoji: '✨', title: 'SEL 五大能力', description: '認識 SEL 五大核心能力，建立自我理解與人際互動的基礎。',       bgColor: 'bg-gradient-to-b[...]
+  { id: 'selfcheck',        emoji: '🌡️', title: '自我檢測',    description: '透過今日壓力指數與簡易檢測，快速了解自己的狀態。',               bgColor: 'bg-gradien[...]
+  { id: 'scenario',         emoji: '🎭', title: '情境應用',    description: '用醫療職場情境練習思考與回應，提升情緒調節與應對能力。',           bgColor: 'bg-gradi[...]
+  { id: 'learning-support', emoji: '🌈', title: '學習補給',    description: '提供有趣紓壓遊戲、放鬆活動與實用資源，幫自己充電。',               bgColor: 'bg-gradien[...]
 ]
 
 function FeatureCards({ navigate }) {
@@ -121,7 +121,7 @@ function FeatureCards({ navigate }) {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {featureList.map((f) => (
           <button key={f.id} onClick={() => navigate(f.id)}
-            className={`group text-left p-6 rounded-2xl border ${f.bgColor} ${f.borderColor} ${f.hoverBorder} card-hover transition-all duration-300 cursor-pointer shadow-sm hover:shadow-card-hover`}>
+            className={`group text-left p-6 rounded-2xl border ${f.bgColor} ${f.borderColor} ${f.hoverBorder} card-hover transition-all duration-300 cursor-pointer shadow-sm hover:shadow-card-hov[...]
             <div className={`w-12 h-12 ${f.iconBg} rounded-xl flex items-center justify-center text-2xl mb-4 shadow-sm group-hover:scale-110 transition-transform duration-200`}>
               {f.emoji}
             </div>
@@ -169,7 +169,7 @@ export default function HomePage({ navigate }) {
                 style={{ boxShadow: '0 12px 50px rgba(100,180,230,0.2), 0 4px 20px rgba(0,0,0,0.08)' }}>
                 <img src="/sel-wheel.png" alt="SEL 五大能力圓餅圖" className="w-full h-full object-cover object-center" />
               </div>
-              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-sky-400 to-teal-400 text-white text-sm font-bold px-5 py-1.5 rounded-full shadow-lg whitespace-nowrap">
+              <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-gradient-to-r from-sky-400 to-teal-400 text-white text-sm font-bold px-5 py-1.5 rounded-full shadow-lg whitespace-nowrap">
                 SEL 五大核心能力
               </div>
               <div className="absolute -top-4 left-8 text-yellow-300 text-xl">✦</div>
@@ -179,13 +179,13 @@ export default function HomePage({ navigate }) {
 
             <div className="flex-1 w-full">
               {[
-                { num:'1', emoji:'🌸', name:'自我覺察',    english:'Self-Awareness',            desc:'認識自己的情緒、目標和價值觀，正確評估優缺點，肯定自我價值。', color: 'from-pink-50 to-rose-50', border: 'border-pink-200', numBg: 'bg-pink-400', tag: 'bg-pink-100 text-pink-700' },
-                { num:'2', emoji:'🌿', name:'自我管理',    english:'Self-Management',           desc:'調節情緒、管理壓力，設定目標並持之以恆，面對挑戰不輕易衝動。', color: 'from-green-50 to-teal-50', border: 'border-green-200', numBg: 'bg-green-400', tag: 'bg-green-100 text-green-700' },
-                { num:'3', emoji:'💙', name:'社會覺察',    english:'Social Awareness',          desc:'具備同理心，理解他人感受，尊重不同背景與文化的多元差異。', color: 'from-sky-50 to-blue-50', border: 'border-sky-200', numBg: 'bg-sky-400', tag: 'bg-sky-100 text-sky-700' },
-                { num:'4', emoji:'🤝', name:'人際技巧',    english:'Relationship Skills',       desc:'有效溝通、積極傾聽、協調合作，在需要時主動尋求或給予協助。', color: 'from-amber-50 to-orange-50', border: 'border-amber-200', numBg: 'bg-amber-400', tag: 'bg-amber-100 text-amber-700' },
-                { num:'5', emoji:'⚖️', name:'負責任的決策', english:'Responsible Decision-Making', desc:'考量道德規範與後果，做出對自己、對他人都負責任的明智判斷。', color: 'from-purple-50 to-violet-50', border: 'border-purple-200', numBg: 'bg-purple-400', tag: 'bg-purple-100 text-purple-700' },
+                { num:'1', emoji:'🌸', name:'自我覺察',    english:'Self-Awareness',            desc:'認識自己的情緒、目標和價值觀，正確評估優缺點，肯定自我價值[...]
+                { num:'2', emoji:'🌿', name:'自我管理',    english:'Self-Management',           desc:'調節情緒、管理壓力，設定目標並持之以恆，面對挑戰不輕易衝動[...]
+                { num:'3', emoji:'💙', name:'社會覺察',    english:'Social Awareness',          desc:'具備同理心，理解他人感受，尊重不同背景與文化的多元差異。', [...]
+                { num:'4', emoji:'🤝', name:'人際技巧',    english:'Relationship Skills',       desc:'有效溝通、積極傾聽、協調合作，在需要時主動尋求或給予協助。[...]
+                { num:'5', emoji:'⚖️', name:'負責任的決策', english:'Responsible Decision-Making', desc:'考量道德規範與後果，做出對自己、對他人都負責任的明智��[...]
               ].map((a) => (
-                <div key={a.num} className={`flex items-start gap-4 mb-3 p-4 rounded-2xl bg-gradient-to-r ${a.color} border ${a.border} hover:shadow-md hover:-translate-y-0.5 transition-all duration-200`}>
+                <div key={a.num} className={`flex items-start gap-4 mb-3 p-4 rounded-2xl bg-gradient-to-r ${a.color} border ${a.border} hover:shadow-md hover:-translate-y-0.5 transition-all durat[...]
                   <div className={`flex-shrink-0 w-11 h-11 ${a.numBg} rounded-xl flex items-center justify-center text-white font-black text-lg shadow-sm`}>{a.num}</div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
