@@ -63,7 +63,7 @@ function HeroSection({ navigate }) {
                 <div className="absolute inset-0 bg-gradient-to-t from-amber-100/20 via-transparent to-transparent" />
               </div>
 
-              <div className="absolute top-6 right-0 sm:right-2 bg-white rounded-2xl shadow-card px-5 py-3 flex items-center gap-2 border border-amber-100 animate-bounce" style={{ animationDuratio[...]
+              <div className="absolute top-6 right-0 sm:right-2 bg-white rounded-2xl shadow-card px-5 py-3 flex items-center gap-2 border border-amber-100 animate-bounce" style={{ animationDuration: '2s' }}>
                 <span className="text-2xl">☕</span>
                 <span className="text-base font-semibold text-warm-text">先喘口氣</span>
               </div>
@@ -79,15 +79,15 @@ function HeroSection({ navigate }) {
                     <stop offset="50%" stopColor="#E8610A" />
                     <stop offset="100%" stopColor="#F4A261" />
                   </linearGradient>
-                  <path id="selLetterArc"   d="M 58,264  A 152,152 0 0,0 322,264" />
+                  <path id="selLetterArc" d="M 58,264  A 152,152 0 0,0 322,264" />
                   <path id="selSubtitleArc" d="M 91,320  A 114,114 0 0,0 289,320" />
                 </defs>
                 <path d="M 44,270 A 165,165 0 0,0 336,270" fill="none" stroke="rgba(255,252,245,0.93)" strokeWidth="88" strokeLinecap="round" />
                 <path d="M 44,270 A 165,165 0 0,0 336,270" fill="none" stroke="rgba(244,162,97,0.45)" strokeWidth="1.5" />
-                <circle cx="44"  cy="270" r="5" fill="#F4A261" opacity="0.8" />
+                <circle cx="44" cy="270" r="5" fill="#F4A261" opacity="0.8" />
                 <circle cx="336" cy="270" r="5" fill="#F4A261" opacity="0.8" />
                 <rect x="55" y="245" width="270" height="38" rx="8" fill="#FDF8F0" opacity="0.95" />
-                <text fontSize="36" fontWeight="900" fontFamily="Arial Black, Impact, sans-serif" fill="url(#selArcGrad)" letterSpacing="18" style={{ filter: 'drop-shadow(0px 1px 3px rgba(232,97,1[...]
+                <text fontSize="36" fontWeight="900" fontFamily="Arial Black, Impact, sans-serif" fill="url(#selArcGrad)" letterSpacing="18" style={{ filter: 'drop-shadow(0px 1px 3px rgba(232,97,10,0.3))' }}>
                   <textPath href="#selLetterArc" startOffset="50%" textAnchor="middle">S · E · L</textPath>
                 </text>
                 <text fontSize="12" fontWeight="700" fontFamily="Noto Sans TC, sans-serif" fill="#C4825A" letterSpacing="5">
@@ -105,10 +105,10 @@ function HeroSection({ navigate }) {
 
 // FeatureCards — 內嵌
 const featureList = [
-  { id: 'abilities',        emoji: '✨', title: 'SEL 五大能力', description: '認識 SEL 五大核心能力，建立自我理解與人際互動的基礎。',       bgColor: 'bg-gradient-to-b[...]
-  { id: 'selfcheck',        emoji: '🌡️', title: '自我檢測',    description: '透過今日壓力指數與簡易檢測，快速了解自己的狀態。',               bgColor: 'bg-gradien[...]
-  { id: 'scenario',         emoji: '🎭', title: '情境應用',    description: '用醫療職場情境練習思考與回應，提升情緒調節與應對能力。',           bgColor: 'bg-gradi[...]
-  { id: 'learning-support', emoji: '🌈', title: '學習補給',    description: '提供有趣紓壓遊戲、放鬆活動與實用資源，幫自己充電。',               bgColor: 'bg-gradien[...]
+  { id: 'abilities', emoji: '✨', title: 'SEL 五大能力', description: '認識 SEL 五大核心能力，建立自我理解與人際互動的基礎。', bgColor: 'bg-gradient-to-br from-pink-50 to-rose-50', borderColor: 'border-pink-200', hoverBorder: 'hover:border-pink-300', iconBg: 'bg-pink-100' },
+  { id: 'selfcheck', emoji: '🌡️', title: '自我檢測', description: '透過今日壓力指數與簡易檢測，快速了解自己的狀態。', bgColor: 'bg-gradient-to-br from-amber-50 to-orange-50', borderColor: 'border-amber-200', hoverBorder: 'hover:border-amber-300', iconBg: 'bg-amber-100' },
+  { id: 'scenario', emoji: '🎭', title: '情境應用', description: '用醫療職場情境練習思考與回應，提升情緒調節與應對能力。', bgColor: 'bg-gradient-to-br from-sky-50 to-blue-50', borderColor: 'border-sky-200', hoverBorder: 'hover:border-sky-300', iconBg: 'bg-sky-100' },
+  { id: 'learning-support', emoji: '🌈', title: '學習補給', description: '提供有趣紓壓遊戲、放鬆活動與實用資源，幫自己充電。', bgColor: 'bg-gradient-to-br from-green-50 to-teal-50', borderColor: 'border-green-200', hoverBorder: 'hover:border-green-300', iconBg: 'bg-green-100' },
 ]
 
 function FeatureCards({ navigate }) {
@@ -121,14 +121,15 @@ function FeatureCards({ navigate }) {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {featureList.map((f) => (
           <button key={f.id} onClick={() => navigate(f.id)}
-            className={`group text-left p-6 rounded-2xl border ${f.bgColor} ${f.borderColor} ${f.hoverBorder} card-hover transition-all duration-300 cursor-pointer shadow-sm hover:shadow-card-hov[...]
+            className={`group text-left p-6 rounded-2xl border ${f.bgColor} ${f.borderColor} ${f.hoverBorder} card-hover transition-all duration-300 cursor-pointer shadow-sm hover:shadow-card-hover`}
+          >
             <div className={`w-12 h-12 ${f.iconBg} rounded-xl flex items-center justify-center text-2xl mb-4 shadow-sm group-hover:scale-110 transition-transform duration-200`}>
               {f.emoji}
             </div>
             <h3 className="font-bold text-warm-text text-base mb-2">{f.title}</h3>
             <p className="text-sub-text text-sm leading-relaxed">{f.description}</p>
             <div className="mt-4 text-muted-orange text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
-              <span>前往</span><span>→</span>
+              <span>前��</span><span>→</span>
             </div>
           </button>
         ))}
@@ -156,7 +157,7 @@ export default function HomePage({ navigate }) {
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-warm-text mb-3">什麼是 SEL？</h2>
             <p className="text-sub-text text-base max-w-xl mx-auto leading-relaxed">
-              社會情緒學習是幫助我們<strong className="text-warm-text">認識自己、理解他人、   出負責任決定</strong>的學習方式，
+              社會情緒學習是幫助我們<strong className="text-warm-text">認識自己、理解他人、做出負責任決定</strong>的學習方式，
               讓醫療工作者在高壓環境中仍能保有溫度與穩定。
             </p>
           </div>
@@ -179,13 +180,13 @@ export default function HomePage({ navigate }) {
 
             <div className="flex-1 w-full">
               {[
-                { num:'1', emoji:'🌸', name:'自我覺察',    english:'Self-Awareness',            desc:'認識自己的情緒、目標和價值觀，正確評估優缺點，肯定自我價值[...]
-                { num:'2', emoji:'🌿', name:'自我管理',    english:'Self-Management',           desc:'調節情緒、管理壓力，設定目標並持之以恆，面對挑戰不輕易衝動[...]
-                { num:'3', emoji:'💙', name:'社會覺察',    english:'Social Awareness',          desc:'具備同理心，理解他人感受，尊重不同背景與文化的多元差異。', [...]
-                { num:'4', emoji:'🤝', name:'人際技巧',    english:'Relationship Skills',       desc:'有效溝通、積極傾聽、協調合作，在需要時主動尋求或給予協助。[...]
-                { num:'5', emoji:'⚖️', name:'負責任的決策', english:'Responsible Decision-Making', desc:'考量道德規範與後果，做出對自己、對他人都負責任的明智��[...]
+                { num: '1', emoji: '🌸', name: '自我覺察', english: 'Self-Awareness', desc: '認識自己的情緒、目標和價值觀，正確評估優缺點，肯定自我價值。', color: 'from-rose-50 to-pink-50', border: 'border-rose-100', numBg: 'bg-rose-400', tag: 'bg-rose-100 text-rose-700' },
+                { num: '2', emoji: '🌿', name: '自我管理', english: 'Self-Management', desc: '調節情緒、管理壓力，設定目標並持之以恆，面對挑戰不輕易衝動。', color: 'from-emerald-50 to-green-50', border: 'border-emerald-100', numBg: 'bg-emerald-400', tag: 'bg-emerald-100 text-emerald-700' },
+                { num: '3', emoji: '💙', name: '社會覺察', english: 'Social Awareness', desc: '具備同理心，理解他人感受，尊重不同背景與文化的多元差異。', color: 'from-sky-50 to-blue-50', border: 'border-sky-100', numBg: 'bg-sky-400', tag: 'bg-sky-100 text-sky-700' },
+                { num: '4', emoji: '🤝', name: '人際技巧', english: 'Relationship Skills', desc: '有效溝通、積極傾聽、協調合作，在需要時主動尋求或給予協助。', color: 'from-amber-50 to-orange-50', border: 'border-amber-100', numBg: 'bg-amber-400', tag: 'bg-amber-100 text-amber-700' },
+                { num: '5', emoji: '⚖️', name: '負責任的決策', english: 'Responsible Decision-Making', desc: '考量道德規範與後果，做出對自己、對他人都負責任的明智決定。', color: 'from-violet-50 to-purple-50', border: 'border-violet-100', numBg: 'bg-violet-400', tag: 'bg-violet-100 text-violet-700' },
               ].map((a) => (
-                <div key={a.num} className={`flex items-start gap-4 mb-3 p-4 rounded-2xl bg-gradient-to-r ${a.color} border ${a.border} hover:shadow-md hover:-translate-y-0.5 transition-all durat[...]
+                <div key={a.num} className={`flex items-start gap-4 mb-3 p-4 rounded-2xl bg-gradient-to-r ${a.color} border ${a.border} hover:shadow-md hover:-translate-y-0.5 transition-all duration-200`}>
                   <div className={`flex-shrink-0 w-11 h-11 ${a.numBg} rounded-xl flex items-center justify-center text-white font-black text-lg shadow-sm`}>{a.num}</div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
