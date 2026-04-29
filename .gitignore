@@ -1,0 +1,11 @@
+node_modules
+dist
+
+# Vite 啟動時產生的暫存設定檔
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# 系統檔
+.DS_Store
+Thumbs.db
+*.log
