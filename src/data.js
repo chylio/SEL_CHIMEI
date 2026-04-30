@@ -176,7 +176,7 @@ export const stressLevelData = [
   {
     id: 3,
     score: 3,
-    name: '滯通卡住',
+    name: '溝通卡住',
     englishName: 'Neutral',
     emoji: '😐',
     image: '/bun-3.png',
