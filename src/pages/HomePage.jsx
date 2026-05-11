@@ -1,3 +1,100 @@
+// ── 統一主視覺：左文右圖（透明 PNG 角色 + 柔和舞台聚光燈） ──
+function SELIntroHero({ navigate }) {
+  return (
+    <section className="relative overflow-hidden bg-gradient-to-b from-amber-50 via-[#FFF5E6] to-cream pt-12 sm:pt-16 pb-14 sm:pb-20">
+      {/* 柔和的背景光暈 */}
+      <div className="absolute top-0 left-1/4 w-[28rem] h-[28rem] bg-orange-200/30 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-rose-100/35 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-amber-200/35 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
+
+          {/* LEFT：文字內容 */}
+          <div className="flex-1 text-center lg:text-left order-2 lg:order-1 lg:max-w-xl">
+            {/* 品牌小標籤 */}
+            <div className="mb-5 sm:mb-6">
+              <span className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-amber-200/80 text-muted-orange text-xs sm:text-sm font-semibold px-4 py-1.5 rounded-full shadow-sm">
+                <span>🌸</span>
+                <span>奇美醫院 SEL 學習小棧</span>
+              </span>
+            </div>
+
+            {/* 主標題 */}
+            <h1 className="text-[2rem] leading-[1.2] sm:text-5xl md:text-6xl font-bold text-warm-text mb-5 sm:mb-6 tracking-tight">
+              照顧別人的同時，<br />
+              <span className="bg-gradient-to-r from-muted-orange to-orange-500 bg-clip-text text-transparent">也別忘了照顧自己</span>
+            </h1>
+
+            {/* 副標題 */}
+            <p className="text-sub-text text-base sm:text-lg md:text-xl leading-relaxed mb-8 sm:mb-10">
+              透過 <strong className="text-warm-text font-semibold">SEL 社會情緒學習</strong>的五大核心能力，
+              <br className="hidden sm:block" />
+              讓壓力有出口、情緒有理解、專業更有溫度。
+            </p>
+
+            {/* CTA 按鈕 */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start max-w-sm sm:max-w-none mx-auto lg:mx-0">
+              <button
+                onClick={() => navigate('abilities')}
+                className="btn-primary text-base sm:text-lg px-8 py-3 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all"
+              >
+                開始探索 →
+              </button>
+              <button
+                onClick={() => navigate('selfcheck')}
+                className="btn-outline text-base sm:text-lg px-8 py-3 hover:scale-[1.02] transition-all"
+              >
+                先做今日檢測
+              </button>
+            </div>
+          </div>
+
+          {/* RIGHT：透明 PNG 萌包群像 + 柔和舞台 */}
+          <div className="flex-1 lg:flex-[1.2] order-1 lg:order-2 w-full max-w-2xl lg:max-w-3xl xl:max-w-4xl">
+            <div className="relative py-2 sm:py-4">
+
+              {/* ① 頂部聚光燈光束（從上往下） */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[110%] h-[60%] pointer-events-none animate-spotlight"
+                   style={{
+                     background: 'radial-gradient(ellipse 60% 100% at 50% 0%, rgba(255,240,210,0.6) 0%, rgba(255,225,180,0.25) 40%, transparent 75%)',
+                   }} />
+
+              {/* ② 舞台地面柔光圓盤（角色腳下的光） */}
+              <div className="absolute bottom-2 sm:bottom-4 left-[8%] right-[8%] h-12 sm:h-16 pointer-events-none"
+                   style={{
+                     background: 'radial-gradient(ellipse 100% 100% at center, rgba(244,162,97,0.4) 0%, rgba(244,162,97,0.18) 45%, transparent 80%)',
+                     filter: 'blur(12px)',
+                   }} />
+
+              {/* ③ 主圖 — 透明 PNG 直接置入 */}
+              <div className="relative z-10">
+                <img
+                  src="/sel-mascots-cutout.png"
+                  alt="SEL 五大能力 — 自我覺察、自我管理、社會覺察、人際關係技巧、負責任的決策"
+                  className="w-full h-auto block relative"
+                  loading="eager"
+                  style={{
+                    // 透明 PNG 直接顯示，drop-shadow 給角色立體感
+                    filter: 'drop-shadow(0 20px 30px rgba(180,100,40,0.25)) drop-shadow(0 8px 16px rgba(0,0,0,0.1))',
+                  }}
+                  onError={(e) => { e.currentTarget.style.display = 'none' }}
+                />
+              </div>
+
+              {/* ④ 點綴星塵 */}
+              <div className="absolute top-[10%] left-[10%] text-amber-300/60 text-sm">✦</div>
+              <div className="absolute top-[18%] right-[8%] text-rose-300/60 text-base">✦</div>
+              <div className="absolute bottom-[20%] left-[6%] text-amber-200/60 text-xs">✦</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  )
+}
+
 // HeroSection — 內嵌
 function HeroSection({ navigate }) {
   return (
@@ -142,16 +239,18 @@ function FeatureCards({ navigate }) {
 export default function HomePage({ navigate }) {
   return (
     <div>
-      <HeroSection navigate={navigate} />
+      {/* 統一主視覺：品牌訊息 + 萌包圖（玻璃毛邊融入） */}
+      <SELIntroHero navigate={navigate} />
+
       <FeatureCards navigate={navigate} />
 
       {/* 什麼是 SEL */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#f0f7ff] via-[#fdf8f2] to-[#f0faf4] py-20">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#f0f7ff] via-[#fdf8f2] to-[#f0faf4] py-16 sm:py-20">
         <div className="absolute top-0 right-0 w-72 h-72 bg-sky-100 rounded-full blur-3xl opacity-40 translate-x-1/3 -translate-y-1/3 pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-amber-100 rounded-full blur-3xl opacity-40 -translate-x-1/3 translate-y-1/3 pointer-events-none" />
 
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12">
+          <div className="text-center mb-10 sm:mb-12">
             <span className="inline-block bg-white border border-sky-200 text-sky-600 text-sm font-semibold px-4 py-1.5 rounded-full shadow-sm mb-4">
               🌱 Social-Emotional Learning
             </span>
@@ -162,15 +261,17 @@ export default function HomePage({ navigate }) {
             </p>
           </div>
 
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-            <div className="flex-shrink-0 relative flex items-center justify-center">
-              <div className="absolute w-[320px] h-[320px] sm:w-[380px] sm:h-[380px] rounded-full bg-gradient-to-br from-sky-100/80 via-amber-50/60 to-green-100/60 blur-2xl" />
-              <div className="absolute w-[290px] h-[290px] sm:w-[350px] sm:h-[350px] rounded-full border-2 border-dashed border-sky-200/80" />
-              <div className="relative w-[250px] h-[250px] sm:w-[310px] sm:h-[310px] rounded-full overflow-hidden shadow-2xl border-4 border-white"
+          {/* 雙視覺：左輪盤 + 右醫師 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 mb-12 sm:mb-14 items-center">
+            {/* 左：SEL 輪盤 */}
+            <div className="relative flex items-center justify-center">
+              <div className="absolute w-[300px] h-[300px] sm:w-[360px] sm:h-[360px] rounded-full bg-gradient-to-br from-sky-100/80 via-amber-50/60 to-green-100/60 blur-2xl" />
+              <div className="absolute w-[280px] h-[280px] sm:w-[330px] sm:h-[330px] rounded-full border-2 border-dashed border-sky-200/80" />
+              <div className="relative w-[240px] h-[240px] sm:w-[290px] sm:h-[290px] rounded-full overflow-hidden shadow-2xl border-4 border-white"
                 style={{ boxShadow: '0 12px 50px rgba(100,180,230,0.2), 0 4px 20px rgba(0,0,0,0.08)' }}>
                 <img src="/sel-wheel.png" alt="SEL 五大能力圓餅圖" className="w-full h-full object-cover object-center" />
               </div>
-              <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-gradient-to-r from-sky-400 to-teal-400 text-white text-sm font-bold px-5 py-1.5 rounded-full shadow-lg whitespace-nowrap">
+              <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-sky-400 to-teal-400 text-white text-xs sm:text-sm font-bold px-4 sm:px-5 py-1.5 rounded-full shadow-lg whitespace-nowrap">
                 SEL 五大核心能力
               </div>
               <div className="absolute -top-4 left-8 text-yellow-300 text-xl">✦</div>
@@ -178,30 +279,66 @@ export default function HomePage({ navigate }) {
               <div className="absolute bottom-10 -left-5 text-green-300 text-sm">✦</div>
             </div>
 
-            <div className="flex-1 w-full">
-              {[
-                { num: '1', emoji: '🌸', name: '自我覺察', english: 'Self-Awareness', desc: '認識自己的情緒、目標和價值觀，正確評估優缺點，肯定自我價值。', color: 'from-rose-50 to-pink-50', border: 'border-rose-100', numBg: 'bg-rose-400', tag: 'bg-rose-100 text-rose-700' },
-                { num: '2', emoji: '🌿', name: '自我管理', english: 'Self-Management', desc: '調節情緒、管理壓力，設定目標並持之以恆，面對挑戰不輕易衝動。', color: 'from-emerald-50 to-green-50', border: 'border-emerald-100', numBg: 'bg-emerald-400', tag: 'bg-emerald-100 text-emerald-700' },
-                { num: '3', emoji: '💙', name: '社會覺察', english: 'Social Awareness', desc: '具備同理心，理解他人感受，尊重不同背景與文化的多元差異。', color: 'from-sky-50 to-blue-50', border: 'border-sky-100', numBg: 'bg-sky-400', tag: 'bg-sky-100 text-sky-700' },
-                { num: '4', emoji: '🤝', name: '人際技巧', english: 'Relationship Skills', desc: '有效溝通、積極傾聽、協調合作，在需要時主動尋求或給予協助。', color: 'from-amber-50 to-orange-50', border: 'border-amber-100', numBg: 'bg-amber-400', tag: 'bg-amber-100 text-amber-700' },
-                { num: '5', emoji: '⚖️', name: '負責任的決策', english: 'Responsible Decision-Making', desc: '考量道德規範與後果，做出對自己、對他人都負責任的明智決定。', color: 'from-violet-50 to-purple-50', border: 'border-violet-100', numBg: 'bg-violet-400', tag: 'bg-violet-100 text-violet-700' },
-              ].map((a) => (
-                <div key={a.num} className={`flex items-start gap-4 mb-3 p-4 rounded-2xl bg-gradient-to-r ${a.color} border ${a.border} hover:shadow-md hover:-translate-y-0.5 transition-all duration-200`}>
-                  <div className={`flex-shrink-0 w-11 h-11 ${a.numBg} rounded-xl flex items-center justify-center text-white font-black text-lg shadow-sm`}>{a.num}</div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <span className="text-xl">{a.emoji}</span>
-                      <span className="font-bold text-warm-text text-base">{a.name}</span>
-                      <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full ${a.tag}`}>{a.english}</span>
-                    </div>
-                    <p className="text-sub-text text-sm leading-relaxed">{a.desc}</p>
-                  </div>
-                </div>
-              ))}
-              <div className="mt-5 text-center lg:text-left">
-                <button onClick={() => navigate('abilities')} className="btn-primary text-sm px-6 py-2.5">深入了解五大能力 →</button>
+            {/* 右：醫師喘口氣（品牌情感視覺） */}
+            <div className="relative flex items-center justify-center">
+              {/* 外層光暈 */}
+              <div className="absolute w-[300px] h-[300px] sm:w-[360px] sm:h-[360px] rounded-full bg-gradient-to-br from-amber-100/80 via-orange-50/60 to-rose-100/60 blur-2xl" />
+
+              {/* 圖片容器 — 有機形狀（呼應 Hero 區的醫師圖風格） */}
+              <div
+                className="relative w-[260px] h-[280px] sm:w-[300px] sm:h-[320px] overflow-hidden shadow-2xl border-4 border-white"
+                style={{
+                  borderRadius: '58% 42% 48% 52% / 52% 48% 52% 48%',
+                  boxShadow: '0 12px 50px rgba(244,162,97,0.22), 0 4px 20px rgba(0,0,0,0.08)',
+                }}
+              >
+                <img src="/hero-doctor.png" alt="醫療人員喝茶放鬆插畫" className="w-full h-full object-cover object-center" />
+                <div className="absolute inset-0 bg-gradient-to-t from-amber-100/25 via-transparent to-transparent" />
               </div>
+
+              {/* 浮動小標籤 — 喘口氣 */}
+              <div className="absolute top-4 -right-2 sm:right-2 bg-white rounded-2xl shadow-card px-4 py-2 flex items-center gap-1.5 border border-amber-100 animate-bounce" style={{ animationDuration: '2.5s' }}>
+                <span className="text-xl">☕</span>
+                <span className="text-sm font-semibold text-warm-text">先喘口氣</span>
+              </div>
+
+              {/* 底部小金句 */}
+              <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-muted-orange to-orange-500 text-white text-xs sm:text-sm font-bold px-4 sm:px-5 py-1.5 rounded-full shadow-lg whitespace-nowrap">
+                💛 給照顧者的溫柔
+              </div>
+
+              <div className="absolute top-8 left-4 text-pink-300 text-base opacity-70">✦</div>
+              <div className="absolute top-1/2 -right-4 text-amber-300 text-lg opacity-70">🌿</div>
             </div>
+          </div>
+
+          {/* 五大能力詳細介紹卡片 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 max-w-4xl mx-auto">
+            {[
+              { num: '1', emoji: '🌸', name: '自我覺察', english: 'Self-Awareness', desc: '認識自己的情緒、目標和價值觀，正確評估優缺點，肯定自我價值。', color: 'from-rose-50 to-pink-50', border: 'border-rose-100', numBg: 'bg-rose-400', tag: 'bg-rose-100 text-rose-700' },
+              { num: '2', emoji: '🌿', name: '自我管理', english: 'Self-Management', desc: '調節情緒、管理壓力，設定目標並持之以恆，面對挑戰不輕易衝動。', color: 'from-emerald-50 to-green-50', border: 'border-emerald-100', numBg: 'bg-emerald-400', tag: 'bg-emerald-100 text-emerald-700' },
+              { num: '3', emoji: '💙', name: '社會覺察', english: 'Social Awareness', desc: '具備同理心，理解他人感受，尊重不同背景與文化的多元差異。', color: 'from-sky-50 to-blue-50', border: 'border-sky-100', numBg: 'bg-sky-400', tag: 'bg-sky-100 text-sky-700' },
+              { num: '4', emoji: '🤝', name: '人際技巧', english: 'Relationship Skills', desc: '有效溝通、積極傾聽、協調合作，在需要時主動尋求或給予協助。', color: 'from-amber-50 to-orange-50', border: 'border-amber-100', numBg: 'bg-amber-400', tag: 'bg-amber-100 text-amber-700' },
+              { num: '5', emoji: '⚖️', name: '負責任的決策', english: 'Responsible Decision-Making', desc: '考量道德規範與後果，做出對自己、對他人都負責任的明智決定。', color: 'from-violet-50 to-purple-50', border: 'border-violet-100', numBg: 'bg-violet-400', tag: 'bg-violet-100 text-violet-700' },
+            ].map((a) => (
+              <div key={a.num} className={`flex items-start gap-4 p-4 rounded-2xl bg-gradient-to-r ${a.color} border ${a.border} hover:shadow-md hover:-translate-y-0.5 transition-all duration-200`}>
+                <div className={`flex-shrink-0 w-11 h-11 ${a.numBg} rounded-xl flex items-center justify-center text-white font-black text-lg shadow-sm`}>{a.num}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1 flex-wrap">
+                    <span className="text-xl">{a.emoji}</span>
+                    <span className="font-bold text-warm-text text-base">{a.name}</span>
+                    <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full ${a.tag}`}>{a.english}</span>
+                  </div>
+                  <p className="text-sub-text text-sm leading-relaxed">{a.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 sm:mt-10 text-center">
+            <button onClick={() => navigate('abilities')} className="btn-primary text-base px-7 py-2.5 shadow-md hover:shadow-xl hover:scale-[1.02] transition-all">
+              深入了解五大能力 →
+            </button>
           </div>
         </div>
       </section>

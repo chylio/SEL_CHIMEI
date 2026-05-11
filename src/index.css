@@ -64,6 +64,25 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ── Vision Pro 舞台聚光燈：膠囊漂浮動畫 ── */
+@keyframes softFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-6px); }
+}
+.animate-float {
+  animation: softFloat 4s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* ── 聚光燈光束動態（極緩慢呼吸感） ── */
+@keyframes spotlightBreathe {
+  0%, 100% { opacity: 0.85; }
+  50%      { opacity: 1; }
+}
+.animate-spotlight {
+  animation: spotlightBreathe 6s ease-in-out infinite;
+}
+
 /* Progress bar animation */
 .progress-bar-fill {
   transition: width 0.8s ease-in-out;
