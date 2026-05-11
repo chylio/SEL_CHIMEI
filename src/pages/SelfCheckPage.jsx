@@ -54,7 +54,7 @@ export default function SelfCheckPage({ navigate }) {
               <div>
                 <h2 className="font-bold text-warm-text text-xl">您的今日壓力狀態</h2>
                 <span className={`text-sm font-semibold ${selected.tagColor}`}>
-                  {selected.name}（{selected.englishName}）·
+                  {selected.name}
                 </span>
               </div>
             </div>
