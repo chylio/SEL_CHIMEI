@@ -132,8 +132,8 @@ export const stressLevelData = [
   {
     id: 1,
     score: 1,
-    name: '壓力滿載',
-    englishName: 'Angry',
+    name: '壓力大爆炸',
+    englishName: '5分',
     emoji: '😤',
     image: '/bun-1.png',
     bunEmoji: '🍡',
@@ -154,8 +154,8 @@ export const stressLevelData = [
   {
     id: 2,
     score: 2,
-    name: '有點疲憊',
-    englishName: 'Sad',
+    name: '忙到想逃避',
+    englishName: '4分',
     emoji: '😔',
     image: '/bun-2.png',
     bunEmoji: '🥺',
@@ -176,8 +176,8 @@ export const stressLevelData = [
   {
     id: 3,
     score: 3,
-    name: '溝通卡住',
-    englishName: 'Neutral',
+    name: '事情卡太多',
+    englishName: '3分',
     emoji: '😐',
     image: '/bun-3.png',
     bunEmoji: '😶',
@@ -198,8 +198,8 @@ export const stressLevelData = [
   {
     id: 4,
     score: 4,
-    name: '還算穩定',
-    englishName: 'Calm',
+    name: '還可以應付',
+    englishName: '2分',
     emoji: '😊',
     image: '/bun-4.png',
     bunEmoji: '☺️',
@@ -220,8 +220,8 @@ export const stressLevelData = [
   {
     id: 5,
     score: 5,
-    name: '有點正能量',
-    englishName: 'Happy',
+    name: '今天很輕鬆',
+    englishName: '1分',
     emoji: '😄',
     image: '/bun-5.png',
     bunEmoji: '🌟',
@@ -303,8 +303,8 @@ export const pharmacistQuizData = [
     '在這個情境中，你會怎麼做？',
     [
       { text: '我能察覺自己已接近壓力極限' },
-      { text: '我能辨識緊張與自責的情緒' },
       { text: '我忽略身體警訊持續工作', isReverse: true },
+      { text: '我能辨識緊張與自責的情緒' },
       { text: '我能提醒自己仍具專業價值' },
     ],
   ),
@@ -314,9 +314,9 @@ export const pharmacistQuizData = [
     '病人因為等太久，開始不耐煩，語氣變重，甚至大聲抱怨：「你們到底有沒有在處理，為什麼這麼慢？到底要我等多久！」\n\n你其實已經很累，內心瞬間冒出不爽與委屈，但現場還有其他病人在看。',
     '面對病人的情緒爆發，你會如何應對？',
     [
-      { text: '我能控制情緒不直接回應病人' },
-      { text: '我能在壓力下穩住自己的節奏' },
       { text: '我會直接表現出不耐情緒', isReverse: true },
+      { text: '我能在壓力下穩住自己的節奏' },
+      { text: '我能控制情緒不直接回應病人' },
       { text: '我能以專業為目標持續應對' },
     ],
   ),
@@ -340,7 +340,7 @@ export const pharmacistQuizData = [
     [
       { text: '我能在醫師不耐時冷靜表達處方疑慮' },
       { text: '我能以尊重語氣溝通，避免對立' },
-      { text: '醫師不耐時，我選擇不再溝通', isReverse: true },
+      { text: '醫師不耐時，我會選擇沉默，不再提出任何專業判斷', isReverse: true },
       { text: '溝通受阻時，我會調整或尋求協助' },
     ],
   ),
@@ -350,9 +350,9 @@ export const pharmacistQuizData = [
     '前台發藥現場很忙，後面排滿病人等待領藥。你發現一張處方有疑慮，但如果確認會拖慢整體流程。\n\n此時，你心裡出現拉扯：「要不要先發藥之後再說～」「應該不會有問題吧～」',
     '面對流程與安全的拉扯，你會怎麼決定？',
     [
-      { text: '我能辨識處方疑慮的病安風險' },
-      { text: '我能在壓力下採取行動確認處方' },
       { text: '忙碌時，我會先發藥再說', isReverse: true },
+      { text: '我能在壓力下採取行動確認處方' },
+      { text: '我能辨識處方疑慮的病安風險' },
       { text: '我決策時優先考量病人安全' },
     ],
   ),
@@ -390,9 +390,9 @@ export const doctorQuizData = [
     '你建議病人接受某項治療（例如：長期用藥或侵入性檢查），但病人強烈抗拒：「我之前做過很不舒服！我不要再做！」甚至對醫療產生不信任。\n\n你原本認為「這是標準治療，對他最好」，但你觀察到病人其實帶有焦慮與過去負面經驗。',
     '面對病人的抗拒，你會怎麼理解？',
     [
-      { text: '我能理解病人的不安與抗拒情緒' },
-      { text: '我能從病人過去經驗與角度思考' },
       { text: '我只強調醫療必要性，不處理情緒', isReverse: true },
+      { text: '我能從病人過去經驗與角度思考' },
+      { text: '我能理解病人的不安與抗拒情緒' },
       { text: '我能調整說法並尊重病人的想法' },
     ],
   ),
@@ -404,8 +404,8 @@ export const doctorQuizData = [
     [
       { text: '我能在對方不耐時，仍清楚表達臨床疑慮' },
       { text: '我能用尊重語氣溝通，避免對立' },
-      { text: '對方態度不佳時，我選擇不再溝通', isReverse: true },
       { text: '溝通受阻時，我會尋求其他管道或團隊協助' },
+      { text: '對方態度不佳時，我會放棄溝通，不再處理人和問題', isReverse: true },
     ],
   ),
   buildQuestion(
@@ -431,8 +431,8 @@ export const residentQuizData = [
     '在這個情境中，你會怎麼做？',
     [
       { text: '我能察覺自己已接近身心負荷極限' },
-      { text: '我能辨識焦慮與自責的情緒' },
       { text: '我忽略身體與情緒訊號，繼續處理其他工作', isReverse: true },
+      { text: '我能辨識焦慮與自責的情緒' },
       { text: '我能提醒自己冷靜下來重新檢視醫囑' },
     ],
   ),
@@ -454,9 +454,9 @@ export const residentQuizData = [
     '你建議病人接受某項檢查或治療，但病人明顯抗拒：「上次做這個很痛苦，我不要再做了！」甚至開始懷疑醫療建議。\n\n你原本認為這是必要處置，但你觀察到病人帶有焦慮與不信任。',
     '面對病人的抗拒，你會怎麼理解？',
     [
-      { text: '我能理解病人的不安與過去經驗影響' },
-      { text: '我能從病人角度重新思考溝通方式' },
       { text: '我只強調醫療必要性，不理會情緒', isReverse: true },
+      { text: '我能從病人角度重新思考溝通方式' },
+      { text: '我能理解病人的不安與過去經驗影響' },
       { text: '我能調整說明方式並回應病人的感受' },
     ],
   ),
@@ -468,7 +468,7 @@ export const residentQuizData = [
     [
       { text: '我能在尊重前提下表達自己的臨床判斷' },
       { text: '我能選擇適當時機再次溝通' },
-      { text: '我因壓力選擇完全不再提出疑問', isReverse: true },
+      { text: '面對層級壓力，我會選擇沉默，不再提出任何疑問', isReverse: true },
       { text: '必要時，我會尋求其他資深醫師或團隊討論' },
     ],
   ),
@@ -479,8 +479,8 @@ export const residentQuizData = [
     '面對時間壓力與病安風險，你會怎麼決定？',
     [
       { text: '我能辨識此狀況可能潛在的風險' },
-      { text: '我能在壓力下優先處理高風險個案' },
       { text: '我可能傾向先延後處理', isReverse: true },
+      { text: '我能在壓力下優先處理高風險個案' },
       { text: '我在決策時以病人安全為優先' },
     ],
   ),
@@ -508,8 +508,8 @@ export const nurseQuizData = [
     [
       { text: '我能控制情緒，不立即情緒性回應' },
       { text: '我能在壓力下維持專業態度' },
-      { text: '我會表現出不耐或直接回應情緒', isReverse: true },
       { text: '我能調整語氣並持續提供協助' },
+      { text: '我會表現出不耐或直接回應情緒', isReverse: true },
     ],
   ),
   buildQuestion(
@@ -532,8 +532,8 @@ export const nurseQuizData = [
     [
       { text: '我能清楚表達病人狀況與我的觀察' },
       { text: '我能用尊重語氣再次說明疑慮' },
-      { text: '對方回應冷淡時，我選擇不再溝通', isReverse: true },
       { text: '必要時，我會持續追蹤或尋求其他協助' },
+      { text: '對方冷冷回應，我就乾脆不講、也不再追蹤', isReverse: true },
     ],
   ),
   buildQuestion(
@@ -559,8 +559,8 @@ export const medTechQuizData = [
     '在這個情境中，你會怎麼做？',
     [
       { text: '我能察覺自己出現壓力或疲勞' },
-      { text: '我能辨識焦慮與自我懷疑的情緒' },
       { text: '我忽略身心狀態持續工作', isReverse: true },
+      { text: '我能辨識焦慮與自我懷疑的情緒' },
       { text: '我能提醒自己仍具專業判斷能力' },
     ],
   ),
@@ -570,9 +570,9 @@ export const medTechQuizData = [
     '臨床端來電催促報告：「這個檢驗怎麼還沒出來？醫師等很久了！」語氣急促甚至帶壓力。\n\n你已經在高工作量下運作，內心出現煩躁與壓力。',
     '面對這種情境，你會如何應對？',
     [
-      { text: '我能控制情緒，不被催促影響判斷' },
-      { text: '我能維持穩定流程，避免出錯' },
       { text: '我會表現出不耐或倉促處理', isReverse: true },
+      { text: '我能維持穩定流程，避免出錯' },
+      { text: '我能控制情緒，不被催促影響判斷' },
       { text: '我能以檢驗品質與正確性為優先' },
     ],
   ),
@@ -595,8 +595,8 @@ export const medTechQuizData = [
     '面對這樣的溝通情境，你會怎麼處理？',
     [
       { text: '我能清楚表達檢體品質與風險' },
+      { text: '一旦對方不配合，我會放棄溝通，不再追蹤或處理任何問題', isReverse: true },
       { text: '我能以尊重方式與臨床端溝通' },
-      { text: '對方不願配合時我選擇放棄', isReverse: true },
       { text: '我會尋求主管或其他管道協助' },
     ],
   ),
@@ -648,8 +648,8 @@ export const radiologistQuizData = [
     [
       { text: '我能理解病人對檢查與輻射的焦慮' },
       { text: '我能試著從病人的角度思考' },
-      { text: '我只專注完成檢查，不理會情緒反應', isReverse: true },
       { text: '我能調整說明方式以增加病人安心感' },
+      { text: '我只專注完成檢查，不理會情緒反應', isReverse: true },
     ],
   ),
   buildQuestion(
@@ -660,7 +660,7 @@ export const radiologistQuizData = [
     [
       { text: '我能在壓力下冷靜表達專業判斷' },
       { text: '我能用尊重語氣與醫師溝通影像品質與安全' },
-      { text: '對方不耐時，我選擇不再提出意見', isReverse: true },
+      { text: '面對醫師不耐，我會選擇沉默，不再提出任何專業判斷', isReverse: true },
       { text: '溝通受阻時，我會尋求資深同仁或主管協助' },
     ],
   ),
@@ -671,8 +671,8 @@ export const radiologistQuizData = [
     '面對效率與安全的衝突，你會怎麼決定？',
     [
       { text: '我能辨識檢查錯誤可能帶來的風險' },
-      { text: '我能在壓力下仍選擇重新確認資訊' },
       { text: '忙碌時，我會先完成檢查再說', isReverse: true },
+      { text: '我能在壓力下仍選擇重新確認資訊' },
       { text: '我決策時優先考量病人安全與正確性' },
     ],
   ),
@@ -724,7 +724,7 @@ export const nutritionistQuizData = [
     [
       { text: '我能清楚表達營養介入的重要性' },
       { text: '我能以尊重方式與團隊溝通' },
-      { text: '對方不重視時我選擇不再溝通', isReverse: true },
+      { text: '面對不重視，我會沉默以對且不再追蹤', isReverse: true },
       { text: '我會尋求其他方式或時機溝通' },
     ],
   ),
@@ -752,8 +752,8 @@ export const respiratoryQuizData = [
     [
       { text: '我能察覺自己已出現壓力或疲勞' },
       { text: '我能辨識焦慮與自我懷疑的情緒' },
-      { text: '我忽略身體與心理警訊繼續工作', isReverse: true },
       { text: '我能提醒自己仍具專業判斷能力' },
+      { text: '我忽略身體與心理警訊繼續工作', isReverse: true },
     ],
   ),
   buildQuestion(
@@ -774,9 +774,9 @@ export const respiratoryQuizData = [
     '你需要協助病人進行抽痰或侵入性呼吸治療，但病人表現出抗拒與不安，甚至出現掙扎。\n\n你原本認為「這是必要處置」，但也觀察到病人可能感到恐懼或缺乏理解。',
     '面對病人的反應，你會怎麼理解？',
     [
-      { text: '我能理解病人的恐懼與不安' },
-      { text: '我能從病人的角度思考感受' },
       { text: '我只專注完成操作不理會情緒', isReverse: true },
+      { text: '我能從病人的角度思考感受' },
+      { text: '我能理解病人的恐懼與不安' },
       { text: '我能調整說明與方式降低不安' },
     ],
   ),
@@ -788,7 +788,7 @@ export const respiratoryQuizData = [
     [
       { text: '我能冷靜表達專業評估與建議' },
       { text: '我能以尊重語氣與醫師溝通' },
-      { text: '對方不同意時我選擇不再提出', isReverse: true },
+      { text: '一旦醫師不同意，我就停止溝通，也不再表達任何專業意見', isReverse: true },
       { text: '我會尋求其他管道或資深同仁協助' },
     ],
   ),
@@ -828,8 +828,8 @@ export const socialWorkerQuizData = [
     [
       { text: '我能控制情緒，不被對方情緒牽動' },
       { text: '我能穩定節奏，維持會談品質' },
-      { text: '我會表現出防衛或不耐', isReverse: true },
       { text: '我能專注於支持與問題解決' },
+      { text: '我會表現出防衛或不耐', isReverse: true },
     ],
   ),
   buildQuestion(
@@ -850,9 +850,9 @@ export const socialWorkerQuizData = [
     '你與醫療團隊討論個案時，醫師希望儘快出院，但你評估病人社會支持不足，可能出院後風險高。\n\n你不確定是否要堅持你的評估。',
     '面對跨專業意見不同，你會怎麼處理？',
     [
-      { text: '我能清楚表達社會風險評估' },
+      { text: '一旦對方堅持，我會完全停止表達，也不再參與相關討論', isReverse: true },
       { text: '我能以尊重方式與團隊溝通' },
-      { text: '對方堅持時我選擇不再表達', isReverse: true },
+      { text: '我能清楚表達社會風險評估' },
       { text: '我會尋求會議或其他管道討論' },
     ],
   ),
@@ -902,9 +902,9 @@ export const physicalTherapistQuizData = [
     '你發現病人復健依從性不佳，常未按時練習或缺席，但進一步了解後，發現其工作、家庭或經濟壓力影響很大。\n\n你原本覺得「應該要配合訓練」，但開始意識到其實存在困難。',
     '面對這種情境，你會怎麼理解？',
     [
-      { text: '我能理解病人的生活壓力與限制' },
-      { text: '我能從病人的處境思考問題' },
       { text: '我只強調復健重要性不考慮背景', isReverse: true },
+      { text: '我能從病人的處境思考問題' },
+      { text: '我能理解病人的生活壓力與限制' },
       { text: '我能調整訓練計畫以提高可行性' },
     ],
   ),
@@ -915,8 +915,8 @@ export const physicalTherapistQuizData = [
     '面對這樣的溝通情境，你會怎麼處理？',
     [
       { text: '我能清楚表達治療判斷與理由' },
+      { text: '對方一旦不同意，我就停止溝通，也不再表達任何專業意見', isReverse: true },
       { text: '我能以尊重方式與對方溝通' },
-      { text: '對方不同意時我選擇不再堅持', isReverse: true },
       { text: '我會尋求其他溝通機會或團隊支持' },
     ],
   ),
@@ -1207,11 +1207,11 @@ export const resourceLinksData = [
 export const bunCards = [
   { emoji: '🌸', message: '今天辛苦了，你已經做得很好了。' },
   { emoji: '🌿', message: '先深呼吸，每一次吐氣都是放鬆的開始。' },
-  { emoji: '☀️', message: '壓力是提醒你在乎的訊號，不是弱點。' },
+  { emoji: '☀️', message: '壓力是一種訊號，不是弱點，可以用來提醒你對它的重視程度。' },
   { emoji: '🍵', message: '給自己泡杯茶的時間，這也是專業能力。' },
   { emoji: '🌈', message: '覺察到情緒，已是自我照顧的第一步。' },
   { emoji: '💙', message: '你的善良和付出，都有它的價值。' },
-  { emoji: '🍀', message: '今天可以做的事，已足夠。明天繼續就好。' },
+  { emoji: '🍀', message: '今天已經完成許多事。明天，我們繼續努力。' },
   { emoji: '🌙', message: '讓自己休息，不是放棄，是為了繼續前行。' },
 ]
 
