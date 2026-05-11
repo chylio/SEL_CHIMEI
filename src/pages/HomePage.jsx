@@ -51,7 +51,7 @@ function SELIntroHero({ navigate }) {
           </div>
 
           {/* RIGHT：透明 PNG 萌包群像 + 柔和舞台 */}
-          <div className="flex-1 lg:flex-[1.2] order-1 lg:order-2 w-full max-w-2xl lg:max-w-3xl xl:max-w-4xl">
+          <div className="flex-1 lg:flex-[1.5] order-1 lg:order-2 w-full max-w-3xl lg:max-w-5xl xl:max-w-6xl">
             <div className="relative py-2 sm:py-4">
 
               {/* ① 頂部聚光燈光束（從上往下） */}
@@ -242,8 +242,6 @@ export default function HomePage({ navigate }) {
       {/* 統一主視覺：品牌訊息 + 萌包圖（玻璃毛邊融入） */}
       <SELIntroHero navigate={navigate} />
 
-      <FeatureCards navigate={navigate} />
-
       {/* 什麼是 SEL */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[#f0f7ff] via-[#fdf8f2] to-[#f0faf4] py-16 sm:py-20">
         <div className="absolute top-0 right-0 w-72 h-72 bg-sky-100 rounded-full blur-3xl opacity-40 translate-x-1/3 -translate-y-1/3 pointer-events-none" />
@@ -265,9 +263,9 @@ export default function HomePage({ navigate }) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 mb-12 sm:mb-14 items-center">
             {/* 左：SEL 輪盤 */}
             <div className="relative flex items-center justify-center">
-              <div className="absolute w-[300px] h-[300px] sm:w-[360px] sm:h-[360px] rounded-full bg-gradient-to-br from-sky-100/80 via-amber-50/60 to-green-100/60 blur-2xl" />
-              <div className="absolute w-[280px] h-[280px] sm:w-[330px] sm:h-[330px] rounded-full border-2 border-dashed border-sky-200/80" />
-              <div className="relative w-[240px] h-[240px] sm:w-[290px] sm:h-[290px] rounded-full overflow-hidden shadow-2xl border-4 border-white"
+              <div className="absolute w-[380px] h-[380px] sm:w-[460px] sm:h-[460px] rounded-full bg-gradient-to-br from-sky-100/80 via-amber-50/60 to-green-100/60 blur-2xl" />
+              <div className="absolute w-[350px] h-[350px] sm:w-[420px] sm:h-[420px] rounded-full border-2 border-dashed border-sky-200/80" />
+              <div className="relative w-[310px] h-[310px] sm:w-[380px] sm:h-[380px] rounded-full overflow-hidden shadow-2xl border-4 border-white"
                 style={{ boxShadow: '0 12px 50px rgba(100,180,230,0.2), 0 4px 20px rgba(0,0,0,0.08)' }}>
                 <img src="/sel-wheel.png" alt="SEL 五大能力圓餅圖" className="w-full h-full object-cover object-center" />
               </div>
@@ -282,11 +280,11 @@ export default function HomePage({ navigate }) {
             {/* 右：醫師喘口氣（品牌情感視覺） */}
             <div className="relative flex items-center justify-center">
               {/* 外層光暈 */}
-              <div className="absolute w-[300px] h-[300px] sm:w-[360px] sm:h-[360px] rounded-full bg-gradient-to-br from-amber-100/80 via-orange-50/60 to-rose-100/60 blur-2xl" />
+              <div className="absolute w-[380px] h-[380px] sm:w-[460px] sm:h-[460px] rounded-full bg-gradient-to-br from-amber-100/80 via-orange-50/60 to-rose-100/60 blur-2xl" />
 
               {/* 圖片容器 — 有機形狀（呼應 Hero 區的醫師圖風格） */}
               <div
-                className="relative w-[260px] h-[280px] sm:w-[300px] sm:h-[320px] overflow-hidden shadow-2xl border-4 border-white"
+                className="relative w-[340px] h-[370px] sm:w-[400px] sm:h-[430px] overflow-hidden shadow-2xl border-4 border-white"
                 style={{
                   borderRadius: '58% 42% 48% 52% / 52% 48% 52% 48%',
                   boxShadow: '0 12px 50px rgba(244,162,97,0.22), 0 4px 20px rgba(0,0,0,0.08)',
@@ -342,6 +340,8 @@ export default function HomePage({ navigate }) {
           </div>
         </div>
       </section>
+
+      <FeatureCards navigate={navigate} />
 
       {/* 溫暖提示 banner */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
