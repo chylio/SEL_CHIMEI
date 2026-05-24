@@ -43,7 +43,7 @@ const consequenceBank = [
   '避免後續重工',
   '維持照護品質',
   '共同維護病房的照護品質',
-  '減少給藥錯誤的風險',
+  '減少作業疏失的機會',
   '讓交班更安心',
 ]
 
@@ -126,8 +126,7 @@ export default function CommunicationGame() {
   return (
     <div>
       <p className="text-sub-text text-xs sm:text-sm leading-relaxed mb-4">
-        從四個顏色的詞庫各挑一句，連連看配對組合，
-        感受一段溫柔又清楚的話是怎麼長出來的。沒有標準答案，怎麼搭都可以。
+        從四個顏色的詞庫各挑一句，連連看配對組合。沒有標準答案，怎麼搭都可以。
       </p>
 
       {/* 句型模板（上方）：四個空格隨選擇即時填入 */}

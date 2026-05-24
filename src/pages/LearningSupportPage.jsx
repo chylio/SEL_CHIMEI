@@ -119,16 +119,13 @@ export default function LearningSupportPage({ navigate }) {
             <div className="w-10 h-10 bg-rose-100 rounded-xl flex items-center justify-center text-xl">💞</div>
             <div>
               <h2 className="text-xl font-bold text-warm-text">自我支持工具區</h2>
-              <p className="text-sub-text text-sm">
-                兩個小練習：一個學著好好對別人說話，一個幫自己找回今天的初心
-              </p>
             </div>
           </div>
           <div className="space-y-5">
             <CollapsibleGameCard
               emoji="💬"
               title="溝通練習室"
-              description="從四個顏色的詞庫各挑一句，組出一段溫柔又清楚的溝通話術。"
+              description="從四個顏色的詞庫各挑一句，組出一段溝通話術。"
                   accentBorder="border-amber-200"
               accentBg="bg-gradient-to-r from-amber-50 via-cream to-rose-50"
             >

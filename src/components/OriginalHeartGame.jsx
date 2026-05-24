@@ -196,10 +196,10 @@ export default function OriginalHeartGame() {
           </div>
 
           <p className="text-center text-xs text-sub-text/80 italic mt-6">
-            願你今天，也記得照顧那個照顧別人的自己。
+            在辛苦又忙碌的臨床工作中，讓初心成為你今天的行動指標。
           </p>
         </div>
-      )}
+        )}
     </div>
   )
 }
