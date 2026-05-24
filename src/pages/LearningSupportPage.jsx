@@ -1,7 +1,46 @@
+import { useState } from 'react'
 import SupportToolCard from '../components/SupportToolCard'
 import CommunicationGame from '../components/CommunicationGame'
 import OriginalHeartGame from '../components/OriginalHeartGame'
 import { learningSupportData, resourceLinksData } from '../data'
+
+// 可收合的遊戲卡片殼
+function CollapsibleGameCard({ emoji, title, description, accentBorder, accentBg, children }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <div className={`card-base border-2 ${accentBorder} overflow-hidden transition-all duration-300`}>
+      {/* 卡片頭：永遠顯示，可點擊 */}
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className={`w-full text-left flex items-center gap-4 p-5 sm:p-6 ${accentBg} hover:brightness-[0.98] transition-all`}
+      >
+        <div className="text-3xl flex-shrink-0">{emoji}</div>
+        <div className="flex-1 min-w-0">
+          <h3 className="font-bold text-warm-text text-base sm:text-lg mb-0.5">{title}</h3>
+          <p className="text-sub-text text-xs sm:text-sm leading-relaxed">{description}</p>
+        </div>
+        <div
+          className={`flex-shrink-0 w-9 h-9 rounded-full bg-white/80 border border-gray-200 flex items-center justify-center transition-transform duration-300 ${
+            open ? 'rotate-180' : ''
+          }`}
+          aria-hidden="true"
+        >
+          <svg className="w-4 h-4 text-warm-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </button>
+
+      {/* 卡片身：展開時顯示 */}
+      {open && (
+        <div className="bg-white p-4 sm:p-6 page-enter border-t border-gray-100">
+          {children}
+        </div>
+      )}
+    </div>
+  )
+}
 
 // ResourceLinkCard — 文章卡樣式
 function ResourceLinkCard({ resource }) {
@@ -85,9 +124,26 @@ export default function LearningSupportPage({ navigate }) {
               </p>
             </div>
           </div>
-          <div className="space-y-6">
-            <CommunicationGame />
-            <OriginalHeartGame />
+          <div className="space-y-5">
+            <CollapsibleGameCard
+              emoji="💬"
+              title="溝通練習室"
+              description="從四個顏色的詞庫各挑一句，組出一段溫柔又清楚的溝通話術。"
+                  accentBorder="border-amber-200"
+              accentBg="bg-gradient-to-r from-amber-50 via-cream to-rose-50"
+            >
+              <CommunicationGame />
+            </CollapsibleGameCard>
+
+            <CollapsibleGameCard
+              emoji="🌱"
+              title="初心補給站"
+              description="選定 1-3 個核心價值，生成屬於你今天的初心卡。"
+              accentBorder="border-rose-200"
+              accentBg="bg-gradient-to-r from-rose-50 via-cream to-amber-50"
+            >
+              <OriginalHeartGame />
+            </CollapsibleGameCard>
           </div>
         </div>
 

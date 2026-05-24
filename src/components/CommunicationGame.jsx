@@ -168,18 +168,10 @@ export default function CommunicationGame() {
   const nextExample = () => setExampleIdx((i) => (i + 1) % exampleCombos.length)
 
   return (
-    <div className="card-base p-6 sm:p-8">
-      {/* 標題與說明 */}
-      <div className="flex items-start gap-3 mb-5">
-        <div className="text-2xl">💬</div>
-        <div className="flex-1">
-          <h3 className="text-lg font-bold text-warm-text mb-1">好好說話學溝通</h3>
-          <p className="text-sub-text text-sm leading-relaxed">
-            從下方四個顏色的詞庫各挑一句，組出一段溫柔又清楚的溝通話術。
-            沒有標準答案，怎麼組都可以——這是練習，不是考試。
-          </p>
-        </div>
-      </div>
+    <div>
+      <p className="text-sub-text text-xs sm:text-sm leading-relaxed mb-5">
+        沒有標準答案，怎麼組都可以——這是練習，不是考試。
+      </p>
 
       {/* 即時組成句子 */}
       <div className="bg-gradient-to-br from-amber-50/60 via-cream to-rose-50/60 rounded-2xl border border-amber-100 p-5 mb-6">

@@ -12,27 +12,10 @@ const valueZones = [
     chipActive: 'bg-rose-200 border-rose-400 text-rose-950 shadow-sm',
     dot: 'bg-rose-400',
     items: [
-      {
-        name: '減痛',
-        desc: '治癒或緩解疾病，減輕他人的痛苦。',
-        // 跨職類適用的微行動（團隊取向）
-        action: '今天試試：與同仁交班時，多提一句「這位病人最在意的不舒服是什麼」。',
-      },
-      {
-        name: '陪伴',
-        desc: '用我的專業，陪他人走過最難的路。',
-        action: '今天試試：跟團隊一起記住一位病人的名字與故事，而不只是床號。',
-      },
-      {
-        name: '看見',
-        desc: '看見疾病之外，每個生命的故事。',
-        action: '今天試試：在團隊討論時，邀請大家分享一個「今天讓我多看了一眼」的時刻。',
-      },
-      {
-        name: '熱忱',
-        desc: '保護想幫助人的初衷，不被消磨。',
-        action: '今天試試：當夥伴抱怨時，回他一句「我們當初想做的是什麼？」並一起想想。',
-      },
+      { name: '減痛', desc: '治癒或緩解疾病，減輕他人的痛苦。' },
+      { name: '陪伴', desc: '用我的專業，陪他人走過最難的路。' },
+      { name: '看見', desc: '看見疾病之外，每個生命的故事。' },
+      { name: '熱忱', desc: '保護想幫助人的初衷，不被消磨。' },
     ],
   },
   {
@@ -45,26 +28,10 @@ const valueZones = [
     chipActive: 'bg-teal-200 border-teal-400 text-teal-950 shadow-sm',
     dot: 'bg-teal-400',
     items: [
-      {
-        name: '專業',
-        desc: '問心無愧，做出最到位的判斷。',
-        action: '今天試試：遇到不確定時，主動找一位夥伴 double check，把判斷變成團隊判斷。',
-      },
-      {
-        name: '細膩',
-        desc: '多花三秒，核對確保安全細節。',
-        action: '今天試試：交接任何一份資料前，跟對方一起花三秒，核對病人、項目、時間。',
-      },
-      {
-        name: '品質',
-        desc: '無論多累，守住專業處置底線。',
-        action: '今天試試：如果發現流程被簡化了，提出來和團隊一起評估是否要回到標準作法。',
-      },
-      {
-        name: '勇氣',
-        desc: '在困難中，依然選擇做對的事。',
-        action: '今天試試：當你看到不太對的事，跟一位信任的夥伴說一聲，讓改變從兩個人開始。',
-      },
+      { name: '專業', desc: '問心無愧，做出最到位的判斷。' },
+      { name: '細膩', desc: '多花三秒，核對確保安全細節。' },
+      { name: '品質', desc: '無論多累，守住專業處置底線。' },
+      { name: '勇氣', desc: '在困難中，依然選擇做對的事。' },
     ],
   },
   {
@@ -77,31 +44,11 @@ const valueZones = [
     chipActive: 'bg-amber-200 border-amber-400 text-amber-950 shadow-sm',
     dot: 'bg-amber-400',
     items: [
-      {
-        name: '同理',
-        desc: '聽懂他人處境，提供理解與安慰。',
-        action: '今天試試：在團隊交接時，對接班的人說一句「今天辛苦了，有什麼需要我幫忙的嗎？」。',
-      },
-      {
-        name: '接納',
-        desc: '接受不完美，包含疲憊的自己。',
-        action: '今天試試：當團隊有人犯錯，先說「我們一起看看怎麼補」，再談檢討。',
-      },
-      {
-        name: '支持',
-        desc: '觀察夥伴的需要，主動伸出援手。',
-        action: '今天試試：看到夥伴忙不過來時，主動接手一件小事（送個檢體、回個電話都好）。',
-      },
-      {
-        name: '合作',
-        desc: '建立默契，與團隊完成照護目標。',
-        action: '今天試試：跨職類溝通時，多問一句「你那邊還需要什麼資訊才能往下走？」。',
-      },
-      {
-        name: '真誠',
-        desc: '尊重差異，用真實且平等的態度對話。',
-        action: '今天試試：跟資淺夥伴或不同科別的人說話時，把語速放慢，把姿態放平。',
-      },
+      { name: '同理', desc: '聽懂他人處境，提供理解與安慰。' },
+      { name: '接納', desc: '接受不完美，包含疲憊的自己。' },
+      { name: '支持', desc: '觀察夥伴的需要，主動伸出援手。' },
+      { name: '合作', desc: '建立默契，與團隊完成照護目標。' },
+      { name: '真誠', desc: '尊重差異，用真實且平等的態度對話。' },
     ],
   },
 ]
@@ -148,22 +95,15 @@ export default function OriginalHeartGame() {
   }, [selectedItems])
 
   return (
-    <div className="card-base p-6 sm:p-8">
-      {/* 標題與說明 */}
-      <div className="flex items-start gap-3 mb-5">
-        <div className="text-2xl">🌱</div>
-        <div className="flex-1">
-          <h3 className="text-lg font-bold text-warm-text mb-1">初心補給站</h3>
-          <p className="text-sub-text text-sm leading-relaxed">
-            在辛苦又忙碌的臨床工作中，哪些價值最能代表你今天的「初心」？
-            請選定 <span className="font-semibold text-muted-orange">1-3 個</span> 核心價值，
-            讓它們成為你今天的行動指標。
-          </p>
-          <p className="text-xs text-sub-text/80 mt-2 italic">
-            沒有標準答案，今天的你選了什麼，就是今天的你需要的。
-          </p>
-        </div>
-      </div>
+    <div>
+      <p className="text-sub-text text-xs sm:text-sm leading-relaxed mb-2">
+        在辛苦又忙碌的臨床工作中，哪些價值最能代表你今天的「初心」？
+        請選定 <span className="font-semibold text-muted-orange">1-3 個</span> 核心價值，
+        讓它們成為你今天的行動指標。
+      </p>
+      <p className="text-xs text-sub-text/80 italic mb-5">
+        沒有標準答案，今天的你選了什麼，就是今天的你需要的。
+      </p>
 
       {/* 計數器 */}
       <div className="flex items-center justify-between mb-5 px-1">
@@ -200,12 +140,11 @@ export default function OriginalHeartGame() {
                     key={item.name}
                     onClick={() => toggle(zone.key, item.name)}
                     disabled={disabled}
-                    title={item.desc}
-                    className={`text-xs px-3 py-1.5 rounded-full border-2 transition-all duration-150
+                    className={`text-sm font-medium px-4 py-2 rounded-full border-2 transition-all duration-150
                       ${active ? zone.chipActive : zone.chipBase}
                       ${disabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}
                   >
-                    【{item.name}】{item.desc.replace(/。$/, '')}
+                    【{item.name}】
                   </button>
                 )
               })}
@@ -238,9 +177,6 @@ export default function OriginalHeartGame() {
           </div>
 
           <div className="space-y-3 mt-6">
-            <div className="text-xs font-semibold text-sub-text text-center mb-2">
-              💡 今天可以試試的小行動
-            </div>
             {selectedItems.map((item) => (
               <div
                 key={item.name}
@@ -249,11 +185,10 @@ export default function OriginalHeartGame() {
                 <div className="flex items-start gap-2">
                   <span className={`mt-1.5 w-2 h-2 rounded-full ${item.zone.dot} flex-shrink-0`}></span>
                   <div className="flex-1">
-                    <div className="text-xs font-bold text-warm-text mb-1">
+                    <div className="text-sm font-bold text-warm-text mb-1">
                       【{item.name}】
-                      <span className="font-normal text-sub-text ml-1">{item.desc}</span>
                     </div>
-                    <p className="text-xs text-warm-text leading-relaxed">{item.action}</p>
+                    <p className="text-xs text-sub-text leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               </div>
