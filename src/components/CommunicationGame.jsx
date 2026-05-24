@@ -47,46 +47,6 @@ const consequenceBank = [
   '讓交班更安心',
 ]
 
-// ── 範例組合（範例對照，非標準答案） ──────────────────────────────
-const exampleCombos = [
-  {
-    e: '能量快耗盡了',
-    d: '交班內容還缺少重要資訊',
-    s: '再花兩分鐘補齊關鍵數值',
-    c: '降低給藥錯誤的風險',
-  },
-  {
-    e: '覺得這項規定很繁瑣',
-    d: '這是為了符合醫療評鑑要求',
-    s: '協助補上這欄簽名',
-    c: '共同維護病房的照護品質',
-  },
-  {
-    e: '很忙',
-    d: '系統顯示有欄位未填寫',
-    s: '花一分鐘檢查',
-    c: '避免後續重工',
-  },
-  {
-    e: '這件事情比較急',
-    d: '病人安全核對清單還沒簽',
-    s: '現在先處理這一項',
-    c: '確保病人安全',
-  },
-  {
-    e: '壓力比較大',
-    d: '給藥紀錄缺少時間註記',
-    s: '幫忙再確認病人 ID',
-    c: '減少給藥錯誤的風險',
-  },
-  {
-    e: '這個結果可能不如預期',
-    d: '這個步驟還沒有被確認',
-    s: '協助完成這個步驟',
-    c: '讓流程更順暢',
-  },
-]
-
 // ── 區塊設定 ──────────────────────────────────────────────────────
 const sections = [
   {
@@ -129,7 +89,6 @@ const sections = [
 
 export default function CommunicationGame() {
   const [picks, setPicks] = useState({ e: null, d: null, s: null, c: null })
-  const [exampleIdx, setExampleIdx] = useState(0)
 
   const selectPick = (key, value) => {
     setPicks((prev) => ({ ...prev, [key]: prev[key] === value ? null : value }))
@@ -152,35 +111,32 @@ export default function CommunicationGame() {
     return (
       <span className="leading-loose">
         我知道你現在{' '}
-        <Slot text={picks.e} color="text-amber-700" placeholder="（理解感受）" />
+        <Slot text={picks.e} label="E" color="amber" />
         ，但{' '}
-        <Slot text={picks.d} color="text-sky-700" placeholder="（描述事實）" />
+        <Slot text={picks.d} label="D" color="sky" />
         ，請你{' '}
-        <Slot text={picks.s} color="text-emerald-700" placeholder="（明確要求）" />
+        <Slot text={picks.s} label="S" color="emerald" />
         ，這樣我們就能{' '}
-        <Slot text={picks.c} color="text-rose-700" placeholder="（說明效益）" />
+        <Slot text={picks.c} label="C" color="rose" />
         。
       </span>
     )
   }, [picks])
 
-  const currentExample = exampleCombos[exampleIdx]
-  const nextExample = () => setExampleIdx((i) => (i + 1) % exampleCombos.length)
-
   return (
     <div>
-      <p className="text-sub-text text-xs sm:text-sm leading-relaxed mb-5">
-        沒有標準答案，怎麼組都可以——這是練習，不是考試。
+      <p className="text-sub-text text-xs sm:text-sm leading-relaxed mb-4">
+        從四個顏色的詞庫各挑一句，連連看配對組合，
+        感受一段溫柔又清楚的話是怎麼長出來的。沒有標準答案，怎麼搭都可以。
       </p>
 
-      {/* 即時組成句子 */}
-      <div className="bg-gradient-to-br from-amber-50/60 via-cream to-rose-50/60 rounded-2xl border border-amber-100 p-5 mb-6">
-        <div className="text-xs font-semibold text-sub-text mb-2">你拼出來的話：</div>
+      {/* 句型模板（上方）：四個空格隨選擇即時填入 */}
+      <div className="bg-gradient-to-br from-amber-50/60 via-cream to-rose-50/60 rounded-2xl border border-amber-100 p-5 mb-5">
         <p className="text-warm-text text-base sm:text-lg font-medium">{sentence}</p>
       </div>
 
       {/* 四欄詞庫 */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-5">
         {sections.map((sec) => (
           <div key={sec.key} className="bg-gray-50/70 rounded-2xl p-4 border border-gray-100">
             <div className="flex items-center gap-2 mb-3">
@@ -209,7 +165,7 @@ export default function CommunicationGame() {
       </div>
 
       {/* 控制按鈕 */}
-      <div className="flex flex-wrap gap-2 mb-6">
+      <div className="flex flex-wrap gap-2 mb-5">
         <button
           onClick={randomFill}
           className="text-xs font-medium px-4 py-2 rounded-full bg-white border border-gray-200 text-warm-text hover:bg-gray-50 transition-colors"
@@ -230,52 +186,81 @@ export default function CommunicationGame() {
         )}
       </div>
 
-      {/* 範例對照 */}
-      <div className="bg-white rounded-2xl border border-dashed border-amber-200 p-5">
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-2">
-            <span className="text-base">📖</span>
-            <span className="font-bold text-warm-text text-sm">臨床建議組合（範例）</span>
-            <span className="text-[11px] text-sub-text">
-              {exampleIdx + 1} / {exampleCombos.length}
-            </span>
-          </div>
-          <button
-            onClick={nextExample}
-            className="text-xs font-medium text-muted-orange hover:text-orange-600 transition-colors"
-          >
-            換一個 →
-          </button>
+      {/* 下方：組合完整句子（自然語句版，無 E/D/S/C 標籤） */}
+      <div
+        className={`rounded-2xl p-5 mb-5 border transition-colors duration-300
+          ${isComplete
+            ? 'bg-emerald-50/50 border-emerald-200'
+            : 'bg-gray-50 border-gray-200'}`}
+      >
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-base">📝</span>
+          <span className="text-xs font-semibold text-sub-text">
+            {isComplete ? '你完成的句子：' : '你目前的句子：'}
+          </span>
         </div>
-        <p className="text-warm-text text-sm leading-loose">
+        <p className="text-warm-text text-base sm:text-lg leading-loose">
           我知道你現在
-          <span className="text-amber-700 font-semibold"> {currentExample.e} </span>
+          <PlainSlot text={picks.e} color="amber" />
           ，但
-          <span className="text-sky-700 font-semibold"> {currentExample.d} </span>
+          <PlainSlot text={picks.d} color="sky" />
           ，請你
-          <span className="text-emerald-700 font-semibold"> {currentExample.s} </span>
+          <PlainSlot text={picks.s} color="emerald" />
           ，這樣我們就能
-          <span className="text-rose-700 font-semibold"> {currentExample.c} </span>
+          <PlainSlot text={picks.c} color="rose" />
           。
         </p>
       </div>
 
       {/* 底部提醒 */}
-      <p className="text-center text-xs text-sub-text mt-5 italic">
+      <p className="text-center text-xs text-sub-text italic">
         好好說話，是專業，也是溫柔。
       </p>
     </div>
   )
 }
 
-// 小元件：句子中的填空槽
-function Slot({ text, color, placeholder }) {
+// 下方完整句子用：純文字版填空槽（已填入彩色／未填僅灰色底線，無標籤）
+function PlainSlot({ text, color }) {
+  const filledColors = {
+    amber: 'text-amber-700',
+    sky: 'text-sky-700',
+    emerald: 'text-emerald-700',
+    rose: 'text-rose-700',
+  }
   if (text) {
-    return <span className={`font-semibold ${color}`}>{text}</span>
+    return <span className={`font-semibold ${filledColors[color]} mx-0.5`}>{text}</span>
   }
   return (
-    <span className="inline-block px-2 py-0.5 mx-0.5 text-xs text-gray-400 bg-gray-100 rounded border border-dashed border-gray-300">
-      {placeholder}
+    <span className="inline-block mx-1 text-gray-300 tracking-widest select-none">
+      ＿＿＿＿
+    </span>
+  )
+}
+
+// 上方填空題用：句子中的填空槽（已填入 → 彩色文字；未填 → [E_______] 填空樣式）
+function Slot({ text, label, color }) {
+  const filledColors = {
+    amber: 'text-amber-700',
+    sky: 'text-sky-700',
+    emerald: 'text-emerald-700',
+    rose: 'text-rose-700',
+  }
+  const emptyColors = {
+    amber: 'text-amber-600 border-amber-300 bg-amber-50/60',
+    sky: 'text-sky-600 border-sky-300 bg-sky-50/60',
+    emerald: 'text-emerald-600 border-emerald-300 bg-emerald-50/60',
+    rose: 'text-rose-600 border-rose-300 bg-rose-50/60',
+  }
+  if (text) {
+    return <span className={`font-semibold ${filledColors[color]}`}>{text}</span>
+  }
+  return (
+    <span
+      className={`inline-flex items-center gap-1 px-2.5 py-0.5 mx-0.5 text-xs font-mono rounded-md border-2 border-dashed ${emptyColors[color]}`}
+    >
+      <span className="font-bold">{label}</span>
+      <span className="tracking-widest opacity-70">_______</span>
     </span>
   )
 }
