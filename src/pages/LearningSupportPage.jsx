@@ -1,4 +1,6 @@
 import SupportToolCard from '../components/SupportToolCard'
+import CommunicationGame from '../components/CommunicationGame'
+import OriginalHeartGame from '../components/OriginalHeartGame'
 import { learningSupportData, resourceLinksData } from '../data'
 
 // ResourceLinkCard — 文章卡樣式
@@ -69,6 +71,23 @@ export default function LearningSupportPage({ navigate }) {
             {learningSupportData.map((tool) => (
               <SupportToolCard key={tool.id} tool={tool} />
             ))}
+          </div>
+        </div>
+
+        {/* ── 自我支持工具區：溝通練習室 + 初心補給站 ───────────────────── */}
+        <div className="mb-14">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 bg-rose-100 rounded-xl flex items-center justify-center text-xl">💞</div>
+            <div>
+              <h2 className="text-xl font-bold text-warm-text">自我支持工具區</h2>
+              <p className="text-sub-text text-sm">
+                兩個小練習：一個學著好好對別人說話，一個幫自己找回今天的初心
+              </p>
+            </div>
+          </div>
+          <div className="space-y-6">
+            <CommunicationGame />
+            <OriginalHeartGame />
           </div>
         </div>
 
