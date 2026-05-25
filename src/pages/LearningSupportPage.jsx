@@ -9,7 +9,6 @@ function CollapsibleGameCard({ emoji, title, description, accentBorder, accentBg
   const [open, setOpen] = useState(false)
   return (
     <div className={`card-base border-2 ${accentBorder} overflow-hidden transition-all duration-300`}>
-      {/* 卡片頭：永遠顯示，可點擊 */}
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -32,7 +31,6 @@ function CollapsibleGameCard({ emoji, title, description, accentBorder, accentBg
         </div>
       </button>
 
-      {/* 卡片身：展開時顯示 */}
       {open && (
         <div className="bg-white p-4 sm:p-6 page-enter border-t border-gray-100">
           {children}
@@ -42,11 +40,9 @@ function CollapsibleGameCard({ emoji, title, description, accentBorder, accentBg
   )
 }
 
-// ResourceLinkCard — 文章卡樣式
 function ResourceLinkCard({ resource }) {
   return (
     <div className="card-base overflow-hidden card-hover flex flex-col">
-      {/* 封面圖 */}
       <div className="relative h-36 overflow-hidden">
         <img src={resource.image} alt={resource.title} className="w-full h-full object-cover" />
         <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-gray-700 text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
@@ -54,7 +50,6 @@ function ResourceLinkCard({ resource }) {
         </span>
       </div>
 
-      {/* 內容 */}
       <div className="p-4 flex flex-col flex-1">
         <h3 className="font-bold text-warm-text text-sm leading-snug mb-2 line-clamp-2">{resource.title}</h3>
         <p className="text-sub-text text-xs leading-relaxed mb-3 flex-1 line-clamp-3">{resource.description}</p>
@@ -78,7 +73,6 @@ function ResourceLinkCard({ resource }) {
   )
 }
 
-// ── 學習補給頁 ────────────────────────────────────────────────────────────────
 export default function LearningSupportPage({ navigate }) {
   return (
     <div>
@@ -98,7 +92,7 @@ export default function LearningSupportPage({ navigate }) {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
-        <div className="mb-14">
+        <div id="section-stress-relief" className="mb-14 scroll-mt-24">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center text-xl">🎈</div>
             <div>
@@ -113,8 +107,7 @@ export default function LearningSupportPage({ navigate }) {
           </div>
         </div>
 
-        {/* ── 自我支持工具區：溝通練習室 + 初心補給站 ───────────────────── */}
-        <div className="mb-14">
+        <div id="section-self-support" className="mb-14 scroll-mt-24">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-10 h-10 bg-rose-100 rounded-xl flex items-center justify-center text-xl">💞</div>
             <div>
@@ -126,7 +119,7 @@ export default function LearningSupportPage({ navigate }) {
               emoji="💬"
               title="溝通練習室"
               description="從四個顏色的詞庫各挑一句，組出一段溝通話術。"
-                  accentBorder="border-amber-200"
+              accentBorder="border-amber-200"
               accentBg="bg-gradient-to-r from-amber-50 via-cream to-rose-50"
             >
               <CommunicationGame />

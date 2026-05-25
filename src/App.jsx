@@ -11,9 +11,21 @@ import { professionsConfig } from './data'
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home')
 
-  const navigate = (page) => {
+  const navigate = (page, anchor) => {
     setCurrentPage(page)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    if (anchor) {
+      // 等下一頁渲染後再 scroll 到指定區塊
+      setTimeout(() => {
+        const el = document.getElementById(anchor)
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+      }, 120)
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
   }
 
   const renderPage = () => {
