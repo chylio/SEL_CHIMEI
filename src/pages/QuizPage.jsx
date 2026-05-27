@@ -60,7 +60,7 @@ function QuizQuestionCard({ question, selectedOptions, onToggleOption, questionI
   )
 }
 
-// 能力 → 學習補給對應區塊（用於「需要加強」時提供連結）
+// 能力 → 學習補給對應區塊（用於提供連結）
 const SECTION_BY_ABILITY = {
   'self-awareness':       { name: '紓壓小幫手',     anchor: 'section-stress-relief', emoji: '🎈' },
   'self-management':      { name: '紓壓小幫手',     anchor: 'section-stress-relief', emoji: '🎈' },
@@ -73,11 +73,32 @@ function ResultSummaryCard({ result, navigate }) {
   const safePct = Number.isFinite(result.percentage) ? result.percentage : 0
   const status = getAbilityStatus(safePct)
   const suggestion = getAbilitySuggestion(result.abilityKey, safePct)
-  const needsPractice = safePct < 50
   const section = SECTION_BY_ABILITY[result.abilityKey]
 
+  // 三級行動：練習 / 優化 / 穩定
+  // < 50% (需要加強)：玫紅色，建議「延伸練習」
+  // 50-79% (持續練習)：琥珀色，建議「再優化」
+  // >= 80% (穩定正向)：不顯示連結
+  let actionTier = null
+  if (safePct < 50) actionTier = 'practice'
+  else if (safePct < 80) actionTier = 'optimize'
+
+  const tierStyle = {
+    practice: {
+      cardBorder: 'border-rose-200 bg-rose-50/30',
+      btnClass: 'border-rose-300 text-rose-600 hover:bg-rose-50',
+      verb: '延伸練習',
+    },
+    optimize: {
+      cardBorder: 'border-amber-200 bg-amber-50/30',
+      btnClass: 'border-amber-300 text-amber-600 hover:bg-amber-50',
+      verb: '再優化',
+    },
+  }
+  const t = actionTier ? tierStyle[actionTier] : null
+
   return (
-    <div className={`card-base border p-5 ${needsPractice ? 'border-rose-200 bg-rose-50/30' : 'border-gray-100'}`}>
+    <div className={`card-base border p-5 ${t ? t.cardBorder : 'border-gray-100'}`}>
       <div className="flex items-center gap-3 mb-3">
         <span className="text-2xl">{result.abilityEmoji}</span>
         <div className="flex-1">
@@ -100,13 +121,13 @@ function ResultSummaryCard({ result, navigate }) {
       </div>
       <p className="text-xs text-sub-text leading-relaxed bg-gray-50 rounded-lg p-3">💡 {suggestion}</p>
 
-      {needsPractice && section && navigate && (
+      {t && section && navigate && (
         <button
           onClick={() => navigate('learning-support', section.anchor)}
-          className="mt-3 w-full inline-flex items-center justify-center gap-1 py-2 px-3 rounded-full bg-white border border-rose-300 text-rose-600 text-sm font-medium hover:bg-rose-50 transition-all"
+          className={`mt-3 w-full inline-flex items-center justify-center gap-1 py-2 px-3 rounded-full bg-white border text-sm font-medium transition-all ${t.btnClass}`}
         >
           <span>{section.emoji}</span>
-          <span>前往「{section.name}」延伸練習</span>
+          <span>前往{section.name}</span>
           <span>→</span>
         </button>
       )}
