@@ -6,90 +6,7 @@ import {
   generateSummaryText,
   getAbilityStatus,
   getAbilitySuggestion,
-  getRecommendations,
 } from '../utils/scoreUtils'
-
-function PrescriptionCard({ recommendations, navigate }) {
-  if (!recommendations || recommendations.length === 0) return null
-
-  const priorityStyle = {
-    high: {
-      tag: '優先練習',
-      tagBg: 'bg-rose-100',
-      tagText: 'text-rose-600',
-      border: 'border-rose-200',
-    },
-    mid: {
-      tag: '建議練習',
-      tagBg: 'bg-amber-100',
-      tagText: 'text-amber-600',
-      border: 'border-amber-200',
-    },
-    maintain: {
-      tag: '日常維持',
-      tagBg: 'bg-green-100',
-      tagText: 'text-green-700',
-      border: 'border-green-200',
-    },
-    overview: {
-      tag: '整體補給',
-      tagBg: 'bg-sky-100',
-      tagText: 'text-sky-600',
-      border: 'border-sky-200',
-    },
-  }
-
-  return (
-    <div className="bg-gradient-to-br from-purple-50 via-cream to-rose-50 border border-purple-100 rounded-2xl p-6 mb-6">
-      <div className="flex items-center gap-2 mb-1">
-        <span className="text-xl">📋</span>
-        <h3 className="font-bold text-warm-text text-lg">你的下一步練習</h3>
-      </div>
-      <p className="text-sub-text text-xs leading-relaxed mb-5">
-        根據你這次的作答，我們挑了幾個工具給你延伸練習。點下去就能直接前往對應的學習補給。
-      </p>
-
-      <div className="space-y-3">
-        {recommendations.map((rec, i) => {
-          const s = priorityStyle[rec.priority] || priorityStyle.overview
-          return (
-            <div
-              key={i}
-              className={`bg-white/80 backdrop-blur-sm rounded-xl border ${s.border} p-4`}
-            >
-              <div className="flex items-start gap-3 mb-2">
-                <div className="text-2xl flex-shrink-0">{rec.emoji}</div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap items-center gap-2 mb-1">
-                    <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${s.tagBg} ${s.tagText}`}>
-                      {s.tag}
-                    </span>
-                    {rec.abilityName && rec.priority !== 'overview' && rec.priority !== 'maintain' && (
-                      <span className="text-xs text-sub-text">
-                        對應「{rec.abilityName}」
-                      </span>
-                    )}
-                  </div>
-                  <div className="font-semibold text-warm-text text-base mb-0.5">{rec.tool}</div>
-                  <p className="text-xs text-sub-text leading-relaxed">
-                    {rec.hint}
-                    {rec.reason ? <span className="block mt-1 text-warm-text/80">💡 {rec.reason}</span> : null}
-                  </p>
-                </div>
-              </div>
-              <button
-                onClick={() => navigate('learning-support', rec.anchor)}
-                className="w-full mt-2 py-2 px-3 rounded-full bg-white border border-purple-200 text-purple-700 text-sm font-medium hover:bg-purple-50 transition-all"
-              >
-                前往 {rec.tool} →
-              </button>
-            </div>
-          )
-        })}
-      </div>
-    </div>
-  )
-}
 
 function QuizQuestionCard({ question, selectedOptions, onToggleOption, questionIndex, totalQuestions }) {
   return (
@@ -143,13 +60,24 @@ function QuizQuestionCard({ question, selectedOptions, onToggleOption, questionI
   )
 }
 
-function ResultSummaryCard({ result }) {
+// 能力 → 學習補給對應區塊（用於「需要加強」時提供連結）
+const SECTION_BY_ABILITY = {
+  'self-awareness':       { name: '紓壓小幫手',     anchor: 'section-stress-relief', emoji: '🎈' },
+  'self-management':      { name: '紓壓小幫手',     anchor: 'section-stress-relief', emoji: '🎈' },
+  'social-awareness':     { name: '自我支持工具區', anchor: 'section-self-support',  emoji: '💞' },
+  'relationship-skills':  { name: '自我支持工具區', anchor: 'section-self-support',  emoji: '💞' },
+  'responsible-decision': { name: '自我支持工具區', anchor: 'section-self-support',  emoji: '💞' },
+}
+
+function ResultSummaryCard({ result, navigate }) {
   const safePct = Number.isFinite(result.percentage) ? result.percentage : 0
   const status = getAbilityStatus(safePct)
   const suggestion = getAbilitySuggestion(result.abilityKey, safePct)
+  const needsPractice = safePct < 50
+  const section = SECTION_BY_ABILITY[result.abilityKey]
 
   return (
-    <div className="card-base border border-gray-100 p-5">
+    <div className={`card-base border p-5 ${needsPractice ? 'border-rose-200 bg-rose-50/30' : 'border-gray-100'}`}>
       <div className="flex items-center gap-3 mb-3">
         <span className="text-2xl">{result.abilityEmoji}</span>
         <div className="flex-1">
@@ -171,6 +99,17 @@ function ResultSummaryCard({ result }) {
         <div className={`h-full ${status.barColor} rounded-full progress-bar-fill`} style={{ width: `${safePct}%` }} />
       </div>
       <p className="text-xs text-sub-text leading-relaxed bg-gray-50 rounded-lg p-3">💡 {suggestion}</p>
+
+      {needsPractice && section && navigate && (
+        <button
+          onClick={() => navigate('learning-support', section.anchor)}
+          className="mt-3 w-full inline-flex items-center justify-center gap-1 py-2 px-3 rounded-full bg-white border border-rose-300 text-rose-600 text-sm font-medium hover:bg-rose-50 transition-all"
+        >
+          <span>{section.emoji}</span>
+          <span>前往「{section.name}」延伸練習</span>
+          <span>→</span>
+        </button>
+      )}
     </div>
   )
 }
@@ -221,8 +160,6 @@ function QuizResults({ profession, answers, navigate, onRetest }) {
   const avgRaw = results.reduce((s, r) => s + (Number.isFinite(r.percentage) ? r.percentage : 0), 0) / results.length
   const avg = Number.isFinite(avgRaw) ? Math.round(avgRaw) : 0
 
-  const recommendations = getRecommendations(profession.quizData, answers, results)
-
   return (
     <div className="max-w-2xl mx-auto">
       <div className="text-center mb-8">
@@ -242,15 +179,13 @@ function QuizResults({ profession, answers, navigate, onRetest }) {
       </div>
 
       <div className="space-y-4 mb-6">
-        {results.map((r) => <ResultSummaryCard key={r.abilityKey} result={r} />)}
+        {results.map((r) => <ResultSummaryCard key={r.abilityKey} result={r} navigate={navigate} />)}
       </div>
 
       <div className="bg-gradient-to-br from-sky-50 to-teal-50 border border-sky-100 rounded-2xl p-6 mb-6">
         <h3 className="font-bold text-warm-text mb-2 flex items-center gap-2"><span>💙</span> 給你的話</h3>
         <p className="text-sub-text text-sm leading-relaxed">{summaryText}</p>
       </div>
-
-      <PrescriptionCard recommendations={recommendations} navigate={navigate} />
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <button
@@ -376,7 +311,5 @@ export default function QuizPage({ navigate, professionId }) {
         )
       })()}
     </div>
-  )
-}
   )
 }
