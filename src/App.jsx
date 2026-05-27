@@ -10,11 +10,12 @@ import { professionsConfig } from './data'
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home')
+  const [currentAnchor, setCurrentAnchor] = useState(null)
 
   const navigate = (page, anchor) => {
     setCurrentPage(page)
+    setCurrentAnchor(anchor || null)
     if (anchor) {
-      // 等下一頁渲染後再 scroll 到指定區塊
       setTimeout(() => {
         const el = document.getElementById(anchor)
         if (el) {
@@ -29,7 +30,6 @@ export default function App() {
   }
 
   const renderPage = () => {
-    // 動態路由：xxx-quiz 對應到對應職類的測驗頁
     if (typeof currentPage === 'string' && currentPage.endsWith('-quiz')) {
       const professionId = currentPage.replace(/-quiz$/, '')
       if (professionsConfig[professionId]) {
@@ -47,7 +47,7 @@ export default function App() {
       case 'scenario':
         return <ScenarioPage navigate={navigate} />
       case 'learning-support':
-        return <LearningSupportPage navigate={navigate} />
+        return <LearningSupportPage navigate={navigate} anchor={currentAnchor} />
       default:
         return <HomePage navigate={navigate} />
     }

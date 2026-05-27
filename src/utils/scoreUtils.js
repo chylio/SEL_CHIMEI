@@ -84,3 +84,140 @@ export function getAbilitySuggestion(abilityKey, percentage) {
   const level = percentage >= 80 ? 'high' : percentage >= 50 ? 'mid' : 'low'
   return suggestions[abilityKey]?.[level] ?? ''
 }
+
+/**
+ * 給定測驗資料、學員作答、能力結果，回傳個人化練習處方
+ * 採混合策略：
+ *   1) 行為觸發（主）— 看哪幾題選到 isReverse
+ *   2) 分數門檻（補）— 補上 < 50% 但未被觸發的能力
+ *   3) 保底維持 — 沒任何警訊時推維持型工具
+ *   4) 永遠最多 3 個，並至少 1 個療癒型尾巴
+ */
+export function getRecommendations(quizData, answers, results) {
+  // 能力 → 工具對應（依據工具庫內容）
+  const TOOL_BY_ABILITY = {
+    'self-awareness': {
+      emoji: '💬',
+      tool: '今天的情緒戳戳樂',
+      anchor: 'tool-emotion',
+      hint: '練習辨識「我現在到底是什麼情緒」',
+    },
+    'self-management': {
+      emoji: '🫁',
+      tool: '1分鐘呼吸調節站',
+      anchor: 'tool-breathing',
+      hint: '在情緒衝上來之前，先回到呼吸',
+    },
+    'social-awareness': {
+      emoji: '💬',
+      tool: '溝通練習室',
+      anchor: 'game-communication',
+      hint: '從四色詞庫，組出能貼近對方感受的話術',
+    },
+    'relationship-skills': {
+      emoji: '💬',
+      tool: '溝通練習室',
+      anchor: 'game-communication',
+      hint: '練習在卡住、被拒絕時，換一種說法',
+    },
+    'responsible-decision': {
+      emoji: '🌱',
+      tool: '初心補給站',
+      anchor: 'game-originalheart',
+      hint: '在難取捨時，回到你的核心價值',
+    },
+  }
+
+  const MAINTAIN_TOOL = {
+    emoji: '🥟',
+    tool: '包子舒壓翻翻卡',
+    anchor: 'tool-buncard',
+    hint: '辛苦了～翻一張暖心包子卡，給自己一點溫柔',
+  }
+
+  const recs = []
+  const usedAbilities = new Set()
+
+  // 1) 行為觸發法：選了 isReverse 的題目 → 強推
+  for (const q of quizData) {
+    const selectedIds = answers[q.id] || []
+    const wrongOpt = q.options.find((o) => o.isReverse)
+    if (!wrongOpt) continue
+    if (selectedIds.includes(wrongOpt.id) && !usedAbilities.has(q.abilityKey)) {
+      const t = TOOL_BY_ABILITY[q.abilityKey]
+      if (t) {
+        recs.push({
+          priority: 'high',
+          abilityKey: q.abilityKey,
+          abilityName: q.abilityName,
+          abilityEmoji: q.abilityEmoji,
+          ...t,
+          reason: `你在這題選到了警示型反應，這個工具可以幫你練習更穩定的應對。`,
+        })
+        usedAbilities.add(q.abilityKey)
+      }
+    }
+  }
+
+  // 2) 分數門檻補強：< 50% 但還沒被觸發
+  for (const r of results) {
+    if (recs.length >= 3) break
+    if (r.percentage < 50 && !usedAbilities.has(r.abilityKey)) {
+      const t = TOOL_BY_ABILITY[r.abilityKey]
+      if (t) {
+        recs.push({
+          priority: 'mid',
+          abilityKey: r.abilityKey,
+          abilityName: r.abilityName,
+          abilityEmoji: r.abilityEmoji,
+          ...t,
+          reason: `「${r.abilityName}」目前 ${r.percentage}%，可以多花一點時間練習。`,
+        })
+        usedAbilities.add(r.abilityKey)
+      }
+    }
+  }
+
+  // 3) 沒任何警訊：看整體分數推維持型 or 最弱項
+  if (recs.length === 0) {
+    const avg = results.reduce((s, r) => s + (r.percentage || 0), 0) / results.length
+    if (avg >= 80) {
+      recs.push({
+        priority: 'maintain',
+        abilityKey: null,
+        abilityName: '日常維持',
+        abilityEmoji: '✨',
+        ...TOOL_BY_ABILITY['self-management'],
+        reason: `你整體表現穩定（平均 ${Math.round(avg)}%）！想保持節奏，每天花 1 分鐘呼吸調節就很夠用。`,
+      })
+    } else {
+      // 中間分數：推最弱項的工具
+      const weakest = [...results].sort((a, b) => (a.percentage || 0) - (b.percentage || 0))[0]
+      if (weakest && TOOL_BY_ABILITY[weakest.abilityKey]) {
+        recs.push({
+          priority: 'mid',
+          abilityKey: weakest.abilityKey,
+          abilityName: weakest.abilityName,
+          abilityEmoji: weakest.abilityEmoji,
+          ...TOOL_BY_ABILITY[weakest.abilityKey],
+          reason: `「${weakest.abilityName}」是這次相對較弱的能力，可以從這個工具開始練。`,
+        })
+        usedAbilities.add(weakest.abilityKey)
+      }
+    }
+  }
+
+  // 4) 永遠加一個療癒型尾巴（最多 3 個推薦上限內）
+  if (recs.length < 3) {
+    recs.push({
+      priority: 'gentle',
+      abilityKey: null,
+      abilityName: '給自己一點溫柔',
+      abilityEmoji: '🌸',
+      ...MAINTAIN_TOOL,
+    })
+  }
+
+  return recs.slice(0, 3)
+}
+

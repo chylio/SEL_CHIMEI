@@ -1,14 +1,16 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import SupportToolCard from '../components/SupportToolCard'
 import CommunicationGame from '../components/CommunicationGame'
 import OriginalHeartGame from '../components/OriginalHeartGame'
 import { learningSupportData, resourceLinksData } from '../data'
 
-// 可收合的遊戲卡片殼
-function CollapsibleGameCard({ emoji, title, description, accentBorder, accentBg, children }) {
-  const [open, setOpen] = useState(false)
+function CollapsibleGameCard({ id, emoji, title, description, accentBorder, accentBg, autoOpen, children }) {
+  const [open, setOpen] = useState(!!autoOpen)
+  useEffect(() => {
+    if (autoOpen) setOpen(true)
+  }, [autoOpen])
   return (
-    <div className={`card-base border-2 ${accentBorder} overflow-hidden transition-all duration-300`}>
+    <div id={id} className={`card-base border-2 ${accentBorder} overflow-hidden transition-all duration-300 scroll-mt-24`}>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -73,7 +75,7 @@ function ResourceLinkCard({ resource }) {
   )
 }
 
-export default function LearningSupportPage({ navigate }) {
+export default function LearningSupportPage({ navigate, anchor }) {
   return (
     <div>
       <div className="bg-gradient-to-br from-teal-50 via-cream to-green-50 pt-12 pb-10">
@@ -102,7 +104,9 @@ export default function LearningSupportPage({ navigate }) {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {learningSupportData.map((tool) => (
-              <SupportToolCard key={tool.id} tool={tool} />
+              <div key={tool.id} id={`tool-${tool.id}`} className="scroll-mt-24">
+                <SupportToolCard tool={tool} />
+              </div>
             ))}
           </div>
         </div>
@@ -116,6 +120,8 @@ export default function LearningSupportPage({ navigate }) {
           </div>
           <div className="space-y-5">
             <CollapsibleGameCard
+              id="game-communication"
+              autoOpen={anchor === 'game-communication'}
               emoji="💬"
               title="溝通練習室"
               description="從四個顏色的詞庫各挑一句，組出一段溝通話術。"
@@ -126,6 +132,8 @@ export default function LearningSupportPage({ navigate }) {
             </CollapsibleGameCard>
 
             <CollapsibleGameCard
+              id="game-originalheart"
+              autoOpen={anchor === 'game-originalheart'}
               emoji="🌱"
               title="初心補給站"
               description="選定 1-3 個核心價值，生成屬於你今天的初心卡。"

@@ -6,9 +6,91 @@ import {
   generateSummaryText,
   getAbilityStatus,
   getAbilitySuggestion,
+  getRecommendations,
 } from '../utils/scoreUtils'
 
-// QuizQuestionCard — 內嵌
+function PrescriptionCard({ recommendations, navigate }) {
+  if (!recommendations || recommendations.length === 0) return null
+
+  const priorityStyle = {
+    high: {
+      tag: '優先練習',
+      tagBg: 'bg-rose-100',
+      tagText: 'text-rose-600',
+      border: 'border-rose-200',
+    },
+    mid: {
+      tag: '建議練習',
+      tagBg: 'bg-amber-100',
+      tagText: 'text-amber-600',
+      border: 'border-amber-200',
+    },
+    maintain: {
+      tag: '日常維持',
+      tagBg: 'bg-green-100',
+      tagText: 'text-green-700',
+      border: 'border-green-200',
+    },
+    gentle: {
+      tag: '溫柔收尾',
+      tagBg: 'bg-rose-50',
+      tagText: 'text-rose-500',
+      border: 'border-rose-100',
+    },
+  }
+
+  return (
+    <div className="bg-gradient-to-br from-purple-50 via-cream to-rose-50 border border-purple-100 rounded-2xl p-6 mb-6">
+      <div className="flex items-center gap-2 mb-1">
+        <span className="text-xl">📋</span>
+        <h3 className="font-bold text-warm-text text-lg">給你的練習處方</h3>
+      </div>
+      <p className="text-sub-text text-xs leading-relaxed mb-5">
+        根據你這次的作答，我們挑了幾個工具給你延伸練習。點下去就能直接前往對應的學習補給。
+      </p>
+
+      <div className="space-y-3">
+        {recommendations.map((rec, i) => {
+          const s = priorityStyle[rec.priority] || priorityStyle.gentle
+          return (
+            <div
+              key={i}
+              className={`bg-white/80 backdrop-blur-sm rounded-xl border ${s.border} p-4`}
+            >
+              <div className="flex items-start gap-3 mb-2">
+                <div className="text-2xl flex-shrink-0">{rec.emoji}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
+                    <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${s.tagBg} ${s.tagText}`}>
+                      {s.tag}
+                    </span>
+                    {rec.abilityName && rec.priority !== 'gentle' && rec.priority !== 'maintain' && (
+                      <span className="text-xs text-sub-text">
+                        對應「{rec.abilityName}」
+                      </span>
+                    )}
+                  </div>
+                  <div className="font-semibold text-warm-text text-base mb-0.5">{rec.tool}</div>
+                  <p className="text-xs text-sub-text leading-relaxed">
+                    {rec.hint}
+                    {rec.reason ? <span className="block mt-1 text-warm-text/80">💡 {rec.reason}</span> : null}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => navigate('learning-support', rec.anchor)}
+                className="w-full mt-2 py-2 px-3 rounded-full bg-white border border-purple-200 text-purple-700 text-sm font-medium hover:bg-purple-50 transition-all"
+              >
+                前往 {rec.tool} →
+              </button>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 function QuizQuestionCard({ question, selectedOptions, onToggleOption, questionIndex, totalQuestions }) {
   return (
     <div className="card-base border border-amber-100 overflow-hidden">
@@ -61,7 +143,6 @@ function QuizQuestionCard({ question, selectedOptions, onToggleOption, questionI
   )
 }
 
-// ResultSummaryCard — 內嵌
 function ResultSummaryCard({ result }) {
   const safePct = Number.isFinite(result.percentage) ? result.percentage : 0
   const status = getAbilityStatus(safePct)
@@ -94,7 +175,6 @@ function ResultSummaryCard({ result }) {
   )
 }
 
-// ── 測驗介紹 ──────────────────────────────────────────────────────────────────
 function QuizIntro({ profession, onStart }) {
   return (
     <div className="max-w-2xl mx-auto text-center py-8">
@@ -118,14 +198,11 @@ function QuizIntro({ profession, onStart }) {
   )
 }
 
-// ── 測驗結果 ──────────────────────────────────────────────────────────────────
 function QuizResults({ profession, answers, navigate, onRetest }) {
   const results = profession.quizData.map((q) => {
     const selectedIds = answers[q.id] || []
     const score = calculateQuestionScore(q, selectedIds)
     const clampedScore = Math.max(0, Math.min(q.maxScore, score))
-
-    // 用 clampedScore 算百分比，避免負分/超過 maxScore 造成 NaN 或奇怪顯示
     const percentage = calculatePercentage(clampedScore, q.maxScore)
 
     return {
@@ -143,6 +220,8 @@ function QuizResults({ profession, answers, navigate, onRetest }) {
   const summaryText = generateSummaryText(results)
   const avgRaw = results.reduce((s, r) => s + (Number.isFinite(r.percentage) ? r.percentage : 0), 0) / results.length
   const avg = Number.isFinite(avgRaw) ? Math.round(avgRaw) : 0
+
+  const recommendations = getRecommendations(profession.quizData, answers, results)
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -171,6 +250,8 @@ function QuizResults({ profession, answers, navigate, onRetest }) {
         <p className="text-sub-text text-sm leading-relaxed">{summaryText}</p>
       </div>
 
+      <PrescriptionCard recommendations={recommendations} navigate={navigate} />
+
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <button
           onClick={onRetest}
@@ -186,14 +267,12 @@ function QuizResults({ profession, answers, navigate, onRetest }) {
   )
 }
 
-// ── 通用測驗頁（依 professionId 動態載入對應職類資料） ────────────────────────
 export default function QuizPage({ navigate, professionId }) {
   const profession = professionsConfig[professionId]
   const [stage, setStage] = useState('intro')
   const [currentQ, setCurrentQ] = useState(0)
   const [answers, setAnswers] = useState({})
 
-  // 切換職類時重置狀態，避免殘留前一個職類的答案
   useEffect(() => {
     setStage('intro')
     setCurrentQ(0)
