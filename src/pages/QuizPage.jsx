@@ -31,11 +31,11 @@ function PrescriptionCard({ recommendations, navigate }) {
       tagText: 'text-green-700',
       border: 'border-green-200',
     },
-    gentle: {
-      tag: '溫柔收尾',
-      tagBg: 'bg-rose-50',
-      tagText: 'text-rose-500',
-      border: 'border-rose-100',
+    overview: {
+      tag: '整體補給',
+      tagBg: 'bg-sky-100',
+      tagText: 'text-sky-600',
+      border: 'border-sky-200',
     },
   }
 
@@ -43,7 +43,7 @@ function PrescriptionCard({ recommendations, navigate }) {
     <div className="bg-gradient-to-br from-purple-50 via-cream to-rose-50 border border-purple-100 rounded-2xl p-6 mb-6">
       <div className="flex items-center gap-2 mb-1">
         <span className="text-xl">📋</span>
-        <h3 className="font-bold text-warm-text text-lg">給你的練習處方</h3>
+        <h3 className="font-bold text-warm-text text-lg">你的下一步練習</h3>
       </div>
       <p className="text-sub-text text-xs leading-relaxed mb-5">
         根據你這次的作答，我們挑了幾個工具給你延伸練習。點下去就能直接前往對應的學習補給。
@@ -51,7 +51,7 @@ function PrescriptionCard({ recommendations, navigate }) {
 
       <div className="space-y-3">
         {recommendations.map((rec, i) => {
-          const s = priorityStyle[rec.priority] || priorityStyle.gentle
+          const s = priorityStyle[rec.priority] || priorityStyle.overview
           return (
             <div
               key={i}
@@ -64,7 +64,7 @@ function PrescriptionCard({ recommendations, navigate }) {
                     <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${s.tagBg} ${s.tagText}`}>
                       {s.tag}
                     </span>
-                    {rec.abilityName && rec.priority !== 'gentle' && rec.priority !== 'maintain' && (
+                    {rec.abilityName && rec.priority !== 'overview' && rec.priority !== 'maintain' && (
                       <span className="text-xs text-sub-text">
                         對應「{rec.abilityName}」
                       </span>
@@ -376,5 +376,7 @@ export default function QuizPage({ navigate, professionId }) {
         )
       })()}
     </div>
+  )
+}
   )
 }
